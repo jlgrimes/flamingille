@@ -10,8 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^5.9.5",
+    "@react-native-community/toolbar-android": "0.1.0-rc.2",
+    "aws-amplify": "^3.0.22",
+    "aws-amplify-react-native": "^4.2.3",
     "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react-native": "0.63.2",
+    "react-native-elements": "^2.0.4",
+    "react-native-vector-icons": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

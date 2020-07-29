@@ -8,6 +8,12 @@ target 'flamingille' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'toolbar-android', :path => '../node_modules/@react-native-community/toolbar-android'
+
   target 'flamingilleTests' do
     inherit! :complete
     # Pods for testing

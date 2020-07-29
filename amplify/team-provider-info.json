@@ -1,0 +1,22 @@
+{
+    "alpha": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-flamingille-alpha-140920-authRole",
+            "UnauthRoleArn": "arn:aws:iam::722396907159:role/amplify-flamingille-alpha-140920-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::722396907159:role/amplify-flamingille-alpha-140920-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-flamingille-alpha-140920-deployment",
+            "UnauthRoleName": "amplify-flamingille-alpha-140920-unauthRole",
+            "StackName": "amplify-flamingille-alpha-140920",
+            "StackId": "arn:aws:cloudformation:us-east-1:722396907159:stack/amplify-flamingille-alpha-140920/a1cce130-d1c6-11ea-bf7e-0eb23bbe71c5",
+            "AmplifyAppId": "d171p2yqooylki"
+        },
+        "categories": {
+            "auth": {
+                "flamingille286b7287": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"415128459720-nh1ungqgn5c4vjst4n6mahfl58e4je37.apps.googleusercontent.com\",\"client_secret\":\"SL3Gu8chBKjs5i-tm_pwTiyB\"}]"
+                }
+            }
+        }
+    }
+}
