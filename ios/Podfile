@@ -14,6 +14,10 @@ target 'flamingille' do
 
   pod 'toolbar-android', :path => '../node_modules/@react-native-community/toolbar-android'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'RNInAppBrowser', :path => '../node_modules/react-native-inappbrowser-reborn'
+
   target 'flamingilleTests' do
     inherit! :complete
     # Pods for testing

@@ -1,2 +1,2 @@
-export * from './SocialLogin';
 export * from './StandardLogin';
+export * from './SignUpButton';

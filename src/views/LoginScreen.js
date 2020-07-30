@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { StandardLogin, SocialLogin } from '../components/Login';
+import { StandardLogin, SignUpButton } from '../components/Login';
+import { SocialButtons } from '../components/SocialButtons';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,13 +11,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Login = () => {
+const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StandardLogin />
-      <SocialLogin />
+      <SignUpButton navigation={navigation} />
+      <SocialButtons ifLogin={true} />
     </View>
   );
 };
 
-export { Login };
+export { LoginScreen };

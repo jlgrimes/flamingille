@@ -5,41 +5,40 @@ import { SocialIcon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
 const StandardLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [usernamePasswordCorrect, setUsernamePasswordCorrect] = useState(true);
+  const [emailPasswordCorrect, setEmailPasswordCorrect] = useState(true);
 
-  const logIn = async (username, password) => {
+  const logIn = async (email, password) => {
     try {
-      const user = await Auth.signIn(username, password);
+      const user = await Auth.signIn(email, password);
     } catch (error) {
-      setUsernamePasswordCorrect(false);
+      setEmailPasswordCorrect(false);
     }
   };
 
   return (
     <>
-      <Title>Login</Title>
-      <HelperText type="error" visible={!usernamePasswordCorrect}>
-        Email or password is incorrect!
+      <HelperText type="error" visible={!emailPasswordCorrect}>
+        Email or password is incorrect
       </HelperText>
       <TextInput
         label="Email"
-        onChange={(e) => setUsername(e.nativeEvent.text)}
-        error={!usernamePasswordCorrect}
+        onChange={(e) => setEmail(e.nativeEvent.text)}
+        error={!emailPasswordCorrect}
       />
       <TextInput
         label="Password"
         secureTextEntry={true}
         onChange={(e) => setPassword(e.nativeEvent.text)}
-        error={!usernamePasswordCorrect}
+        error={!emailPasswordCorrect}
       />
       <SocialIcon
         title="Log In"
         button
         type="medium"
         iconStyle={{ width: 0 }}
-        onPress={() => logIn(username, password)}
+        onPress={() => logIn(email, password)}
       />
     </>
   );
