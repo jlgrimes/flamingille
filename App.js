@@ -7,7 +7,7 @@ import { Authenticator } from 'aws-amplify-react-native';
 
 import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
-import { LoginScreen, SignUpScreen } from './src/views';
+import { LoginScreen, SignUpScreen, HomeScreen } from './src/views';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -45,14 +45,14 @@ const App = () => {
   }
 
   useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((userData) => setUser(userData))
+      .catch(() => setUser(null));
+
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          getUser().then((userData) => setUser(userData));
-          break;
         case 'cognitoHostedUI':
-          getUser().then((userData) => setUser(userData));
-          break;
         case 'signOut':
           setUser(null);
           break;
@@ -68,8 +68,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Sign Up" component={SignUpScreen} />
+        {user ? (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Sign Up" component={SignUpScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

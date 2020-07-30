@@ -50,7 +50,7 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
 
-    console.log(email)
+    console.log(email);
 
     try {
       const user = await Auth.signUp({
