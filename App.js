@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Linking } from 'react-native';
+import { Linking, AsyncStorage } from 'react-native';
 import awsconfig from './aws-exports.js';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import { Authenticator } from 'aws-amplify-react-native';
 
+import { Authenticator } from 'aws-amplify-react-native';
 import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
 import { LoginScreen, SignUpScreen, HomeScreen } from './src/views';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 const Stack = createStackNavigator();
 
 async function urlOpener(url, redirectUrl) {
@@ -38,47 +39,83 @@ Amplify.configure({
 const App = () => {
   const [user, setUser] = useState(null);
 
-  function getUser() {
-    return Auth.currentAuthenticatedUser()
-      .then((userData) => userData)
-      .catch(() => console.log('Not signed in'));
-  }
+  const setUserDataState = async () => {
+    try {
+      const userData = await Auth.currentAuthenticatedUser();
+      setUser(userData);
+    } catch (error) {
+      setUser(null);
+    }
+  };
+
+  const setUserDataStorage = async () => {
+    const userData = await Auth.currentAuthenticatedUser();
+    console.log(userData);
+    try {
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+    } catch (error) {
+      console.log('Error with storing user data', error);
+    }
+  };
+
+  const getUserDataStorage = async () => {
+    const userData = await AsyncStorage.getItem('userData');
+    const data = JSON.parse(userData);
+    return data;
+  };
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((userData) => setUser(userData))
-      .catch(() => setUser(null));
+    const hubListen = async () => {
+      Hub.listen('auth', ({ payload: { event, data } }) => {
+        switch (event) {
+          case 'signIn':
+            setUserDataStorage(data);
+          case 'cognitoHostedUI':
+          case 'signOut':
+            setUser(null);
+            break;
+          case 'signIn_failure':
+            console.log('Sign in failure!!', data);
+            break;
+          case 'cognitoHostedUI_failure':
+            console.log('Sign in failure', data);
+            break;
+        }
+      });
+    };
 
-    Hub.listen('auth', ({ payload: { event, data } }) => {
-      switch (event) {
-        case 'signIn':
-        case 'cognitoHostedUI':
-        case 'signOut':
-          setUser(null);
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-          console.log('Sign in failure', data);
-          break;
-      }
-    });
+    const loadUserDataFromStorage = async () => {
+      const userData = await getUserDataStorage();
+      setUser(userData);
+    };
 
-    getUser().then((userData) => setUser(userData));
+    // run the auth listener
+    loadUserDataFromStorage();
+    hubListen();
   }, []);
+
+  const logOut = async () => {
+    await Auth.signOut();
+    setUserDataState();
+    setUserDataStorage();
+  };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {user ? (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Sign Up" component={SignUpScreen} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+      {user ? (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            initialParams={{ logOut }}
+          />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Sign Up" component={SignUpScreen} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
