@@ -28,7 +28,7 @@ const HomeScreen = ({ userData, wipeUserData }) => {
   return (
     <View style={styles.container}>
       <Text>Home page</Text>
-      <Button onPress={() => Auth.signOut()}>Hi</Button>
+      <Button onPress={() => Auth.signOut()}>Sign Out</Button>
     </View>
   );
 };
