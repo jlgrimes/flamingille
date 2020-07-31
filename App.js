@@ -1,17 +1,25 @@
+// React imports
 import React, { useState, useEffect } from 'react';
 import { Linking, AsyncStorage } from 'react-native';
+
+// AWS imports
 import awsconfig from './aws-exports.js';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-
 import { Authenticator } from 'aws-amplify-react-native';
 import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
-import { LoginScreen, SignUpScreen } from './src/views';
-import HomeScreen from './src/views/HomeScreen';
+// Redux imports
+import { connect } from 'react-redux';
+import { setUserData, wipeUserData } from './src/actions';
 
+// UI Library Imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+// Component imports
+import { LoginScreen, SignUpScreen } from './src/views';
+import HomeScreen from './src/views/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,18 +49,14 @@ const mapStateToProps = (state) => {
   return { userData: state.userData };
 };
 
-const App = () => {
-  const [user, setUser] = useState(null);
-
-  const setUserDataState = async () => {
-    try {
-      const userData = await Auth.currentAuthenticatedUser();
-      setUser(userData);
-    } catch (error) {
-      setUser(null);
-    }
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserData: (userData) => dispatch(setUserData(userData)),
+    wipeUserData: (userData) => dispatch(wipeUserData(userData)),
   };
+}
 
+const App = ({ userData, setUserData, wipeUserData }) => {
   const setUserDataStorage = async () => {
     const userData = await Auth.currentAuthenticatedUser();
     console.log(userData);
@@ -72,12 +76,15 @@ const App = () => {
   useEffect(() => {
     const hubListen = async () => {
       Hub.listen('auth', ({ payload: { event, data } }) => {
+        console.log(event);
         switch (event) {
           case 'signIn':
-            setUserDataStorage(data);
+            setUserData(data);
+            break;
           case 'cognitoHostedUI':
+            break;
           case 'signOut':
-            setUser(null);
+            wipeUserData();
             break;
           case 'signIn_failure':
             console.log('Sign in failure!!', data);
@@ -91,11 +98,11 @@ const App = () => {
 
     const loadUserDataFromStorage = async () => {
       const userData = await getUserDataStorage();
-      setUser(userData);
+      setUserData(userData);
     };
 
     // run the auth listener
-    loadUserDataFromStorage();
+    // loadUserDataFromStorage();
     hubListen();
   }, []);
 
@@ -107,7 +114,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {user ? (
+      {userData ? (
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
@@ -125,4 +132,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

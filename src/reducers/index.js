@@ -1,4 +1,4 @@
-import { SET_USER_DATA, CLEAR_USER_DATA } from '../constants/action-types';
+import { SET_USER_DATA, WIPE_USER_DATA } from '../constants/action-types';
 
 const initialState = {
   userData: null,
@@ -10,7 +10,7 @@ function rootReducer(state = initialState, action) {
       userData: action.payload,
     };
   }
-  if (action.type === CLEAR_USER_DATA) {
+  if (action.type === WIPE_USER_DATA) {
     return { userData: null };
   }
   return state;

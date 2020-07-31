@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { wipeUserData } from '../actions';
 
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -17,13 +18,19 @@ const mapStateToProps = (state) => {
   return { userData: state.userData };
 };
 
-const HomeScreen = ({ userData }) => {
+function mapDispatchToProps(dispatch) {
+  return {
+    wipeUserData: (userData) => dispatch(wipeUserData(userData)),
+  };
+}
+
+const HomeScreen = ({ userData, wipeUserData }) => {
   return (
     <View style={styles.container}>
       <Text>Home page</Text>
-      <Button onPress={() => console.log(userData)}>Hi</Button>
+      <Button onPress={() => Auth.signOut()}>Hi</Button>
     </View>
   );
 };
 
-export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
