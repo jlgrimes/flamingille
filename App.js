@@ -7,7 +7,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { Authenticator } from 'aws-amplify-react-native';
 import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
-import { LoginScreen, SignUpScreen, HomeScreen } from './src/views';
+import { LoginScreen, SignUpScreen } from './src/views';
+import HomeScreen from './src/views/HomeScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -35,6 +36,10 @@ Amplify.configure({
     urlOpener,
   },
 });
+
+const mapStateToProps = (state) => {
+  return { userData: state.userData };
+};
 
 const App = () => {
   const [user, setUser] = useState(null);
