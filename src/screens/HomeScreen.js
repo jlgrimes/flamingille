@@ -25,6 +25,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const HomeScreen = ({ userData, wipeUserData }) => {
+  console.log(userData);
   return (
     <View style={styles.container}>
       <Text>Home page</Text>

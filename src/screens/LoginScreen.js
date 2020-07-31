@@ -21,4 +21,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export { LoginScreen };
+export default LoginScreen;

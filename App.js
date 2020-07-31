@@ -18,8 +18,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Component imports
-import { LoginScreen, SignUpScreen } from './src/views';
-import HomeScreen from './src/views/HomeScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 
 const Stack = createStackNavigator();
 
@@ -127,6 +129,7 @@ const App = ({ userData, setUserData, wipeUserData }) => {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Sign Up" component={SignUpScreen} />
+          <Stack.Screen name="Sign Up Code" component={SignUpCodeScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

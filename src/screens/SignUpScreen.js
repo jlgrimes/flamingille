@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { setUserData } from '../actions';
+
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
@@ -53,11 +56,17 @@ const SignUpScreen = ({ navigation }) => {
     console.log(email);
 
     try {
-      const user = await Auth.signUp({
+      const userData = await Auth.signUp({
         username: email,
         password,
         attributes: { email },
       });
+
+      // an intermediate step - we set the redux state to be the user's incomplete account
+      // this can be used in the SignUpCodeScreen component to "pass" the userData object
+      setUserData(userData);
+
+      navigation.navigate('Sign Up Code');
     } catch (error) {
       const { message } = error;
       setSignUpError(message);
@@ -107,4 +116,4 @@ const SignUpScreen = ({ navigation }) => {
   );
 };
 
-export { SignUpScreen };
+export default SignUpScreen;
