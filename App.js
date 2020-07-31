@@ -57,9 +57,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 const App = ({ userData, setUserData, wipeUserData }) => {
-  const setUserDataStorage = async () => {
-    const userData = await Auth.currentAuthenticatedUser();
-    console.log(userData);
+  const setUserDataStorage = async (userData) => {
+    userData = userData ? userData : '';
     try {
       await AsyncStorage.setItem('userData', JSON.stringify(userData));
     } catch (error) {
@@ -73,6 +72,11 @@ const App = ({ userData, setUserData, wipeUserData }) => {
     return data;
   };
 
+  const loadUserDataFromStorage = async () => {
+    const userData = await getUserDataStorage();
+    setUserData(userData);
+  };
+
   useEffect(() => {
     const hubListen = async () => {
       Hub.listen('auth', ({ payload: { event, data } }) => {
@@ -80,11 +84,13 @@ const App = ({ userData, setUserData, wipeUserData }) => {
         switch (event) {
           case 'signIn':
             setUserData(data);
+            setUserDataStorage(data);
             break;
           case 'cognitoHostedUI':
             break;
           case 'signOut':
             wipeUserData();
+            setUserDataStorage(null);
             break;
           case 'signIn_failure':
             console.log('Sign in failure!!', data);
@@ -96,13 +102,8 @@ const App = ({ userData, setUserData, wipeUserData }) => {
       });
     };
 
-    const loadUserDataFromStorage = async () => {
-      const userData = await getUserDataStorage();
-      setUserData(userData);
-    };
-
     // run the auth listener
-    // loadUserDataFromStorage();
+    loadUserDataFromStorage();
     hubListen();
   }, []);
 
