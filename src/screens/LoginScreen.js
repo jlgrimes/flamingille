@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { StandardLogin, SignUpButton } from '../components/Login';
+
+import StandardLogin from '../components/Login/StandardLogin';
+import SignUpButton from '../components/Login/SignUpButton';
 import { SocialButtons } from '../components/SocialButtons';
 
 const styles = StyleSheet.create({

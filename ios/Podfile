@@ -18,6 +18,8 @@ target 'flamingille' do
 
   pod 'RNInAppBrowser', :path => '../node_modules/react-native-inappbrowser-reborn'
 
+  #pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
+
   target 'flamingilleTests' do
     inherit! :complete
     # Pods for testing

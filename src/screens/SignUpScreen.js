@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation, setUserData }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -53,14 +53,14 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
 
-    console.log(email);
-
     try {
-      const userData = await Auth.signUp({
+      const user = await Auth.signUp({
         username: email,
         password,
         attributes: { email },
       });
+
+      const userData = { username: email };
 
       // an intermediate step - we set the redux state to be the user's incomplete account
       // this can be used in the SignUpCodeScreen component to "pass" the userData object
@@ -116,4 +116,10 @@ const SignUpScreen = ({ navigation }) => {
   );
 };
 
-export default SignUpScreen;
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserData: (userData) => dispatch(setUserData(userData)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(SignUpScreen);

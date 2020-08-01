@@ -7,11 +7,15 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   if (action.type === SET_USER_DATA) {
     return {
+      ...state,
       userData: action.payload,
     };
   }
   if (action.type === WIPE_USER_DATA) {
-    return { userData: null };
+    return {
+      ...state,
+      userData: null,
+    };
   }
   return state;
 }

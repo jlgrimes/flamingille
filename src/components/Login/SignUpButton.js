@@ -17,4 +17,4 @@ const SignUpButton = ({ navigation }) => {
   );
 };
 
-export { SignUpButton };
+export default SignUpButton;

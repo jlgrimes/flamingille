@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { setUserData } from '../../actions';
+
 import { Alert } from 'react-native';
 import { TextInput, HelperText, Title } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
-const StandardLogin = () => {
+const StandardLogin = ({ setUserData }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailPasswordCorrect, setEmailPasswordCorrect] = useState(true);
 
   const logIn = async (email, password) => {
     try {
-      const user = await Auth.signIn(email, password);
+      const userData = await Auth.signIn(email, password);
+      setUserData(userData);
     } catch (error) {
+      console.log(error);
       setEmailPasswordCorrect(false);
     }
   };
@@ -44,4 +49,14 @@ const StandardLogin = () => {
   );
 };
 
-export { StandardLogin };
+const mapStateToProps = (state) => {
+  return { userData: state.userData };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserData: (userData) => dispatch(setUserData(userData)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StandardLogin);

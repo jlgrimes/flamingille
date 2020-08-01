@@ -111,13 +111,13 @@ const App = ({ userData, setUserData, wipeUserData }) => {
 
   const logOut = async () => {
     await Auth.signOut();
-    setUserDataState();
+    wipeUserData();
     setUserDataStorage();
   };
 
   return (
     <NavigationContainer>
-      {userData ? (
+      {userData && userData.attributes.email_verified ? (
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
