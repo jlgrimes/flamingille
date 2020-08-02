@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setUserData } from '../actions';
+import { setUserData } from '../redux/actions';
 
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';

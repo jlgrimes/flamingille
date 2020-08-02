@@ -11,7 +11,7 @@ import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
 // Redux imports
 import { connect } from 'react-redux';
-import { setUserData, wipeUserData } from './src/actions';
+import { setUserData, wipeUserData } from './src/redux/actions';
 
 // UI Library Imports
 import { NavigationContainer } from '@react-navigation/native';

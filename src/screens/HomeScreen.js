@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { wipeUserData } from '../actions';
+import { wipeUserData } from '../redux/actions';
 
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
