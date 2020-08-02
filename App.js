@@ -115,7 +115,7 @@ const App = ({ userData, setUserData, wipeUserData }) => {
     setUserDataStorage();
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   const renderHome = () => {
     if (userData) {
