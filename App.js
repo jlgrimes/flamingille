@@ -115,9 +115,24 @@ const App = ({ userData, setUserData, wipeUserData }) => {
     setUserDataStorage();
   };
 
+  console.log(userData);
+
+  const renderHome = () => {
+    if (userData) {
+      if (userData.username.includes('Google')) {
+        return true;
+      }
+      if (userData.attributes.email_verified) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  };
+
   return (
     <NavigationContainer>
-      {userData && userData.attributes.email_verified ? (
+      {renderHome() ? (
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
