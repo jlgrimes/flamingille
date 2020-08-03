@@ -12,6 +12,7 @@ import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 // Redux imports
 import { connect } from 'react-redux';
 import { setUserData, wipeUserData } from './src/redux/actions';
+import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 
 // UI Library Imports
 import { NavigationContainer } from '@react-navigation/native';
@@ -46,17 +47,6 @@ Amplify.configure({
     urlOpener,
   },
 });
-
-const mapStateToProps = (state) => {
-  return { userData: state.userData };
-};
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUserData: (userData) => dispatch(setUserData(userData)),
-    wipeUserData: (userData) => dispatch(wipeUserData(userData)),
-  };
-}
 
 const App = ({ userData, setUserData, wipeUserData }) => {
   const setUserDataStorage = async (userData) => {

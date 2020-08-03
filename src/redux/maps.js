@@ -1,11 +1,14 @@
-import { setUserData } from './actions';
+import { setUserData, wipeUserData } from './actions';
 
-export const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return { userData: state.userData };
 };
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     setUserData: (userData) => dispatch(setUserData(userData)),
+    wipeUserData: (userData) => dispatch(wipeUserData(userData)),
   };
 };
+
+export { mapStateToProps, mapDispatchToProps };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { mapStateToProps } from '../redux/maps';
 
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
@@ -15,10 +16,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-const mapStateToProps = (state) => {
-  return { userData: state.userData };
-};
 
 const SignUpCodeScreen = ({ userData }) => {
   console.log(userData);

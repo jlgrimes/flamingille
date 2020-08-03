@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setUserData } from '../../redux/actions';
+import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
 import { Alert } from 'react-native';
 import { TextInput, HelperText, Title } from 'react-native-paper';
@@ -48,15 +48,5 @@ const StandardLogin = ({ setUserData }) => {
     </>
   );
 };
-
-const mapStateToProps = (state) => {
-  return { userData: state.userData };
-};
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUserData: (userData) => dispatch(setUserData(userData)),
-  };
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(StandardLogin);

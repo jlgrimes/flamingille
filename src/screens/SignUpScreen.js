@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setUserData } from '../redux/actions';
+import { mapDispatchToProps } from '../redux/maps';
 
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
@@ -115,11 +115,5 @@ const SignUpScreen = ({ navigation, setUserData }) => {
     </View>
   );
 };
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUserData: (userData) => dispatch(setUserData(userData)),
-  };
-}
 
 export default connect(null, mapDispatchToProps)(SignUpScreen);
