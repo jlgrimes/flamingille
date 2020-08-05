@@ -1,36 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUsers = /* GraphQL */ `
-  subscription OnCreateUsers {
-    onCreateUsers {
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser(
+    $id: ID
+    $username: String
+    $name: String
+    $description: String
+    $createdAt: AWSDateTime
+  ) {
+    onCreateUser(
+      id: $id
+      username: $username
+      name: $name
+      description: $description
+      createdAt: $createdAt
+    ) {
       id
+      username
       name
       description
-      createdAt
-      updatedAt
     }
   }
 `;
-export const onUpdateUsers = /* GraphQL */ `
-  subscription OnUpdateUsers {
-    onUpdateUsers {
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser(
+    $id: ID
+    $username: String
+    $name: String
+    $description: String
+    $createdAt: AWSDateTime
+  ) {
+    onUpdateUser(
+      id: $id
+      username: $username
+      name: $name
+      description: $description
+      createdAt: $createdAt
+    ) {
       id
+      username
       name
       description
-      createdAt
-      updatedAt
     }
   }
 `;
-export const onDeleteUsers = /* GraphQL */ `
-  subscription OnDeleteUsers {
-    onDeleteUsers {
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser(
+    $id: ID
+    $username: String
+    $name: String
+    $description: String
+    $createdAt: AWSDateTime
+  ) {
+    onDeleteUser(
+      id: $id
+      username: $username
+      name: $name
+      description: $description
+      createdAt: $createdAt
+    ) {
       id
+      username
       name
       description
-      createdAt
-      updatedAt
     }
   }
 `;

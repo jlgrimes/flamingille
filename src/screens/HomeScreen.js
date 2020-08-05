@@ -10,7 +10,7 @@ import { Auth } from 'aws-amplify';
 import HomeCardStack from '../components/Home/HomeCardStack';
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createUsers } from '../graphql/mutations';
+import { createUser } from '../graphql/mutations';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,19 +25,19 @@ const HomeScreen = ({ userData, wipeUserData }) => {
 
   const addDummyUser = async () => {
     const userDetails = {
+      username: userData.username,
       name: 'Jared Grimes + Holli Konrad',
       description:
         'We are a couple looking to PARTY it up with our couple homies',
     };
     const res = await API.graphql(
-      graphqlOperation(createUsers, { input: userDetails }),
+      graphqlOperation(createUser, { input: userDetails }),
     );
     console.log(res);
   };
 
   return (
     <View style={styles.container}>
-      <Text>Home page</Text>
       <HomeCardStack />
       <Button onPress={addDummyUser}>add dummy</Button>
       <Button onPress={() => Auth.signOut()}>Sign Out</Button>
