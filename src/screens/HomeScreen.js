@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
@@ -58,7 +57,7 @@ const HomeScreen = ({
           (match) =>
             match.sender === currentUserId && match.target === candidate.id,
         );
-        return targetMatches.length > 0;
+        return targetMatches.length === 0;
       });
 
       return filteredCandidates;

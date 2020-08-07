@@ -7,15 +7,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import HomeCard from './HomeCard';
 
 const HomeCardStack = ({ navigation, userDbData }) => {
-  const homeCardUsers = userDbData.candidateUsers;
+  let homeCardUsers = userDbData.candidateUsers;
   return (
     <>
-      {homeCardUsers &&
-      homeCardUsers.items &&
-      homeCardUsers.items.length > 0 ? (
-        homeCardUsers.items.map((user) => (
-          <HomeCard key={user.id} user={user} />
-        ))
+      {homeCardUsers && homeCardUsers.length > 0 ? (
+        homeCardUsers.map((user) => <HomeCard key={user.id} user={user} />)
       ) : (
         <Text>Nobody is left :(</Text>
       )}
