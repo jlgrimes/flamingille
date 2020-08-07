@@ -12,7 +12,7 @@ import HomeCardStack from '../components/Home/HomeCardStack';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers } from '../graphql/queries';
 
-import {screenNames} from '../constants/screenNames';
+import { screenNames } from '../constants/screenNames';
 
 const styles = StyleSheet.create({
   container: {

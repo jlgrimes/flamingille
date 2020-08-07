@@ -2,20 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../redux/maps';
 
+import { StyleSheet, View } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import { Text } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers } from '../../graphql/queries';
+
+const styles = StyleSheet.create({
+  icons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+});
 
 const HomeCardStack = ({ navigation }) => {
   const [homeCardUsers, setHomeCardUsers] = useState(undefined);
 
   useEffect(() => {
-    // someone help this query is broken
     const fetchUsers = async () => {
       const evt = await API.graphql(graphqlOperation(listUsers));
-      // console.log(evt);
       setHomeCardUsers(evt.data.listUsers);
     };
     fetchUsers();
@@ -30,6 +36,22 @@ const HomeCardStack = ({ navigation }) => {
             <Card.Content>
               <Title>{user.name}</Title>
               <Paragraph>{user.description}</Paragraph>
+              <View style={styles.icons}>
+                <Icon
+                  raised
+                  name="heart"
+                  type="font-awesome"
+                  color="red"
+                  onPress={() => console.log('hello')}
+                />
+                <Icon
+                  raised
+                  name="close"
+                  type="font-awesome"
+                  color="gray"
+                  onPress={() => console.log('nope')}
+                />
+              </View>
             </Card.Content>
           </Card>
         ))}
