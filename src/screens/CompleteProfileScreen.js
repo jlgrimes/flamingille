@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 // please help bro this page sucks
-const CompleteProfileScreen = ({ navigation, userData }) => {
+const CompleteProfileScreen = ({ navigation, userAuthData }) => {
   const [names, setNames] = useState('');
   const [description, setDescription] = useState('');
 
@@ -43,7 +43,7 @@ const CompleteProfileScreen = ({ navigation, userData }) => {
     console.log(description);
 
     const userDetails = {
-      username: userData.username,
+      username: userAuthData.username,
       name: names,
       description: description,
     };

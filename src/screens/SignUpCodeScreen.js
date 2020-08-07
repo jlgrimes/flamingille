@@ -17,16 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpCodeScreen = ({ navigation, userData }) => {
-  console.log(userData);
+const SignUpCodeScreen = ({ navigation, userAuthData }) => {
   const [code, setCode] = useState('');
   const [invalidCodeError, setInvalidCodeError] = useState(null);
 
   const confirmCode = async () => {
     try {
-      console.log(userData);
-      console.log(userData.username);
-      await Auth.confirmSignUp(userData.username, code);
+      await Auth.confirmSignUp(userAuthData.username, code);
       navigation.navigate('Complete Profile');
     } catch (error) {
       setInvalidCodeError(error);

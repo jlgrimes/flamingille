@@ -54,25 +54,25 @@ Amplify.configure({
   },
 });
 
-const App = ({ userData, setUserData, wipeUserData }) => {
-  const setUserDataStorage = async (userData) => {
-    userData = userData ? userData : '';
+const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
+  const setUserAuthDataStorage = async (userAuthData) => {
+    userAuthData = userAuthData ? userAuthData : '';
     try {
-      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      await AsyncStorage.setItem('userAuthData', JSON.stringify(userAuthData));
     } catch (error) {
       console.log('Error with storing user data', error);
     }
   };
 
-  const getUserDataStorage = async () => {
-    const userData = await AsyncStorage.getItem('userData');
-    const data = JSON.parse(userData);
+  const getUserAuthDataStorage = async () => {
+    const userAuthData = await AsyncStorage.getItem('userAuthData');
+    const data = JSON.parse(userAuthData);
     return data;
   };
 
-  const loadUserDataFromStorage = async () => {
-    const userData = await getUserDataStorage();
-    setUserData(userData);
+  const loadUserAuthDataFromStorage = async () => {
+    const userAuthData = await getUserAuthDataStorage();
+    setUserAuthData(userAuthData);
   };
 
   useEffect(() => {
@@ -81,14 +81,14 @@ const App = ({ userData, setUserData, wipeUserData }) => {
         console.log(event);
         switch (event) {
           case 'signIn':
-            setUserData(data);
-            setUserDataStorage(data);
+            setUserAuthData(data);
+            setUserAuthDataStorage(data);
             break;
           case 'cognitoHostedUI':
             break;
           case 'signOut':
-            wipeUserData();
-            setUserDataStorage(null);
+            wipeUserAuthData();
+            setUserAuthDataStorage(null);
             break;
           case 'signIn_failure':
             console.log('Sign in failure!!', data);
@@ -100,25 +100,29 @@ const App = ({ userData, setUserData, wipeUserData }) => {
       });
     };
 
-    // run the auth listener
-    loadUserDataFromStorage();
+    // first thing we want to do on app load is load the user data from storage
+    // based on this call, the "userAuthData" variable will be set which changes the render
+    // method of Login/Home
+    loadUserAuthDataFromStorage();
+
+    // this is a listener for login/logout events by Amplify Auth
     hubListen();
   }, []);
 
   const logOut = async () => {
     await Auth.signOut();
-    wipeUserData();
-    setUserDataStorage();
+    wipeUserAuthData();
+    setUserAuthDataStorage();
   };
 
-  // console.log(userData);
+  // console.log(userAuthData);
 
   const renderHome = () => {
-    if (userData) {
-      if (userData.username.includes('Google')) {
+    if (userAuthData) {
+      if (userAuthData.username.includes('Google')) {
         return true;
       }
-      if (userData.attributes.email_verified) {
+      if (userAuthData.attributes.email_verified) {
         return true;
       }
       return false;

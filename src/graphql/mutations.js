@@ -31,3 +31,33 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
+export const createMatch = /* GraphQL */ `
+  mutation CreateMatch($input: CreateMatchInput!) {
+    createMatch(input: $input) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;
+export const updateMatch = /* GraphQL */ `
+  mutation UpdateMatch($input: UpdateMatchInput!) {
+    updateMatch(input: $input) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;
+export const deleteMatch = /* GraphQL */ `
+  mutation DeleteMatch($input: DeleteMatchInput!) {
+    deleteMatch(input: $input) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;

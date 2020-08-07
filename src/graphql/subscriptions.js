@@ -67,3 +67,63 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMatch = /* GraphQL */ `
+  subscription OnCreateMatch(
+    $id: ID
+    $sender: ID
+    $target: ID
+    $resolved: Boolean
+  ) {
+    onCreateMatch(
+      id: $id
+      sender: $sender
+      target: $target
+      resolved: $resolved
+    ) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;
+export const onUpdateMatch = /* GraphQL */ `
+  subscription OnUpdateMatch(
+    $id: ID
+    $sender: ID
+    $target: ID
+    $resolved: Boolean
+  ) {
+    onUpdateMatch(
+      id: $id
+      sender: $sender
+      target: $target
+      resolved: $resolved
+    ) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;
+export const onDeleteMatch = /* GraphQL */ `
+  subscription OnDeleteMatch(
+    $id: ID
+    $sender: ID
+    $target: ID
+    $resolved: Boolean
+  ) {
+    onDeleteMatch(
+      id: $id
+      sender: $sender
+      target: $target
+      resolved: $resolved
+    ) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;

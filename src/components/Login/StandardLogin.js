@@ -7,15 +7,15 @@ import { TextInput, HelperText, Title } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
-const StandardLogin = ({ setUserData }) => {
+const StandardLogin = ({ setUserAuthData }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailPasswordCorrect, setEmailPasswordCorrect] = useState(true);
 
   const logIn = async (email, password) => {
     try {
-      const userData = await Auth.signIn(email, password);
-      setUserData(userData);
+      const userAuthData = await Auth.signIn(email, password);
+      setUserAuthData(userAuthData);
     } catch (error) {
       console.log(error);
       setEmailPasswordCorrect(false);

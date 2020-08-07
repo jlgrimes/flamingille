@@ -28,3 +28,30 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const getMatch = /* GraphQL */ `
+  query GetMatch($id: ID!) {
+    getMatch(id: $id) {
+      id
+      sender
+      target
+      resolved
+    }
+  }
+`;
+export const listMatches = /* GraphQL */ `
+  query ListMatches(
+    $filter: TableMatchFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMatches(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sender
+        target
+        resolved
+      }
+      nextToken
+    }
+  }
+`;

@@ -5,6 +5,9 @@ import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 import { View, StyleSheet, Text } from 'react-native';
 import HomeCardStack from '../components/Home/HomeCardStack';
 
+import { API, graphqlOperation } from 'aws-amplify';
+import { listUsers } from '../graphql/queries';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -13,44 +16,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({ navigation, userData, wipeUserData }) => {
-  /*
-  const addDummyUser = async () => {
-    const userDetails = {
-      username: userData.username,
-      name: 'Jared Grimes + Holli Konrad',
-      description:
-        'We are a couple looking to PARTY it up with our couple homies',
-    };
-    const res = await API.graphql(
-      graphqlOperation(createUser, { input: userDetails }),
-    );
-    console.log(res);
-  };
-  */
-  /*
-  const checkIfProfileExists = async () => {
-    const filter = {
-      username: {
-        eq: userData.username,
-      },
-    };
-    const res = await API.graphql(
-      graphqlOperation(listUsers, { filter: filter }),
-    );
-    return res.data.listUsers.items.length > 0;
-  };
-
+const HomeScreen = ({
+  navigation,
+  userAuthData,
+  setCurrentUserDbData,
+  setCandidateUsers,
+}) => {
   useEffect(() => {
-    const routeToCompleteProfile = async () => {
-      const profileExists = await checkIfProfileExists();
-      if (!profileExists) {
-        navigation.navigate(screenNames.completeProfile);
-      }
+    // this is where the "sorting algorithm is going to take place"
+    // all we have for our sorting algorithm now is, are they not the logged in person
+    const fetchUsers = async () => {
+      const filter = {
+        username: {
+          ne: userAuthData.username,
+        },
+      };
+      const evt = await API.graphql(
+        graphqlOperation(listUsers, { filter: filter }),
+      );
+      setCandidateUsers(evt.data.listUsers);
     };
-    routeToCompleteProfile();
+    fetchUsers();
   }, []);
-  */
 
   return (
     <View style={styles.container}>

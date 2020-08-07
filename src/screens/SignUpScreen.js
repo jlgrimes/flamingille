@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpScreen = ({ navigation, setUserData }) => {
+const SignUpScreen = ({ navigation, setUserAuthData }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -62,11 +62,11 @@ const SignUpScreen = ({ navigation, setUserData }) => {
         attributes: { email },
       });
 
-      const userData = { username: email };
+      const userAuthData = { username: email };
 
       // an intermediate step - we set the redux state to be the user's incomplete account
-      // this can be used in the SignUpCodeScreen component to "pass" the userData object
-      setUserData(userData);
+      // this can be used in the SignUpCodeScreen component to "pass" the userAuthData object
+      setUserAuthData(userAuthData);
 
       navigation.navigate(screenNames.signUpCode);
     } catch (error) {
