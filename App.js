@@ -14,6 +14,7 @@ import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 // UI Library Imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Component imports
 import HomeScreen from './src/screens/HomeScreen';
@@ -21,11 +22,15 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 // Constants imports
 import { screenNames } from './src/constants/screenNames';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 async function urlOpener(url, redirectUrl) {
   await InAppBrowser.isAvailable();
@@ -123,37 +128,49 @@ const App = ({ userData, setUserData, wipeUserData }) => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {
-          // we render home this way because of "protected routes" and stuff like
-          // more info here: https://reactnavigation.org/docs/auth-flow
-          renderHome() ? (
-            <>
-              <Stack.Screen
-                name={screenNames.home}
-                component={HomeScreen}
-                initialParams={{ logOut }}
-              />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name={screenNames.login} component={LoginScreen} />
-              <Stack.Screen
-                name={screenNames.signUp}
-                component={SignUpScreen}
-              />
-              <Stack.Screen
-                name={screenNames.signUpCode}
-                component={SignUpCodeScreen}
-              />
-            </>
-          )
-        }
-        <Stack.Screen
-          name={screenNames.completeProfile}
-          component={CompleteProfileScreen}
-        />
-      </Stack.Navigator>
+      {
+        // we render home this way because of "protected routes" and stuff like
+        // more info here: https://reactnavigation.org/docs/auth-flow
+        renderHome() ? (
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === 'Home') {
+                  iconName = focused ? 'home' : 'home-outline';
+                } else if (route.name === 'Settings') {
+                  iconName = focused ? 'settings' : 'settings-outline';
+                }
+
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+            })}>
+            <Tab.Screen
+              name={screenNames.home}
+              component={HomeScreen}
+              initialParams={{ logOut }}
+            />
+            <Tab.Screen
+              name={screenNames.settings}
+              component={SettingsScreen}
+            />
+          </Tab.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen name={screenNames.login} component={LoginScreen} />
+            <Stack.Screen name={screenNames.signUp} component={SignUpScreen} />
+            <Stack.Screen
+              name={screenNames.signUpCode}
+              component={SignUpCodeScreen}
+            />
+            <Stack.Screen
+              name={screenNames.completeProfile}
+              component={CompleteProfileScreen}
+            />
+          </Stack.Navigator>
+        )
+      }
     </NavigationContainer>
   );
 };

@@ -1,18 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { wipeUserData } from '../redux/actions';
 import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
 import { View, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-paper';
-import { Auth } from 'aws-amplify';
-
 import HomeCardStack from '../components/Home/HomeCardStack';
-
-import { API, graphqlOperation } from 'aws-amplify';
-import { listUsers } from '../graphql/queries';
-
-import { screenNames } from '../constants/screenNames';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +28,7 @@ const HomeScreen = ({ navigation, userData, wipeUserData }) => {
     console.log(res);
   };
   */
-
+  /*
   const checkIfProfileExists = async () => {
     const filter = {
       username: {
@@ -59,12 +50,11 @@ const HomeScreen = ({ navigation, userData, wipeUserData }) => {
     };
     routeToCompleteProfile();
   }, []);
+  */
 
   return (
     <View style={styles.container}>
       <HomeCardStack />
-      {/*<Button onPress={addDummyUser}>add dummy</Button>*/}
-      <Button onPress={() => Auth.signOut()}>Sign Out</Button>
     </View>
   );
 };
