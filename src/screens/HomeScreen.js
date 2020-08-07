@@ -12,6 +12,8 @@ import HomeCardStack from '../components/Home/HomeCardStack';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers } from '../graphql/queries';
 
+import {screenNames} from '../constants/screenNames';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -52,7 +54,7 @@ const HomeScreen = ({ navigation, userData, wipeUserData }) => {
     const routeToCompleteProfile = async () => {
       const profileExists = await checkIfProfileExists();
       if (!profileExists) {
-        navigation.navigate('Complete Profile');
+        navigation.navigate(screenNames.completeProfile);
       }
     };
     routeToCompleteProfile();

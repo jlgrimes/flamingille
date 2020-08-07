@@ -9,6 +9,8 @@ import { Auth } from 'aws-amplify';
 
 import { SocialButtons } from '../components/SocialButtons';
 
+import { screenNames } from '../constants/screenNames';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -66,7 +68,7 @@ const SignUpScreen = ({ navigation, setUserData }) => {
       // this can be used in the SignUpCodeScreen component to "pass" the userData object
       setUserData(userData);
 
-      navigation.navigate('Sign Up Code');
+      navigation.navigate(screenNames.signUpCode);
     } catch (error) {
       const { message } = error;
       setSignUpError(message);

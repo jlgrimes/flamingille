@@ -6,12 +6,9 @@ import { Linking, AsyncStorage } from 'react-native';
 import awsconfig from './aws-exports.js';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import { Authenticator } from 'aws-amplify-react-native';
-import { SignIn, SignUp } from 'aws-amplify-react-native/dist/Auth';
 
 // Redux imports
 import { connect } from 'react-redux';
-import { setUserData, wipeUserData } from './src/redux/actions';
 import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 
 // UI Library Imports
@@ -24,6 +21,9 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
+
+// Constants imports
+import { screenNames } from './src/constants/screenNames';
 
 const Stack = createStackNavigator();
 
@@ -130,21 +130,27 @@ const App = ({ userData, setUserData, wipeUserData }) => {
           renderHome() ? (
             <>
               <Stack.Screen
-                name="Home"
+                name={screenNames.home}
                 component={HomeScreen}
                 initialParams={{ logOut }}
               />
             </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Sign Up" component={SignUpScreen} />
-              <Stack.Screen name="Sign Up Code" component={SignUpCodeScreen} />
+              <Stack.Screen name={screenNames.login} component={LoginScreen} />
+              <Stack.Screen
+                name={screenNames.signUp}
+                component={SignUpScreen}
+              />
+              <Stack.Screen
+                name={screenNames.signUpCode}
+                component={SignUpCodeScreen}
+              />
             </>
           )
         }
         <Stack.Screen
-          name="Complete Profile"
+          name={screenNames.completeProfile}
           component={CompleteProfileScreen}
         />
       </Stack.Navigator>
