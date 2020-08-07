@@ -7,12 +7,21 @@ import { listUsers } from '../../graphql/queries';
 
 import HomeCard from './HomeCard';
 
-const HomeCardStack = ({ navigation }) => {
+const HomeCardStack = ({ navigation, userData }) => {
   const [homeCardUsers, setHomeCardUsers] = useState(undefined);
 
   useEffect(() => {
+    // this is where the "sorting algorithm is going to take place"
+    // all we have for our sorting algorithm now is, are they not the logged in person
     const fetchUsers = async () => {
-      const evt = await API.graphql(graphqlOperation(listUsers));
+      const filter = {
+        username: {
+          ne: userData.username,
+        },
+      };
+      const evt = await API.graphql(
+        graphqlOperation(listUsers, { filter: filter }),
+      );
       setHomeCardUsers(evt.data.listUsers);
     };
     fetchUsers();
@@ -22,7 +31,9 @@ const HomeCardStack = ({ navigation }) => {
     <>
       {homeCardUsers &&
         homeCardUsers.items &&
-        homeCardUsers.items.map((user) => <HomeCard user={user} />)}
+        homeCardUsers.items.map((user) => (
+          <HomeCard key={user.id} user={user} />
+        ))}
     </>
   );
 };

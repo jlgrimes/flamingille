@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 const HomeCard = ({ navigation, user }) => {
   return (
-    <Card key={user.id}>
+    <Card>
       <Card.Content>
         <Title>{user.name}</Title>
         <Paragraph>{user.description}</Paragraph>
