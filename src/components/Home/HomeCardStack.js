@@ -15,7 +15,7 @@ const HomeCardStack = ({ navigation }) => {
     // someone help this query is broken
     const fetchUsers = async () => {
       const evt = await API.graphql(graphqlOperation(listUsers));
-      console.log(evt);
+      // console.log(evt);
       setHomeCardUsers(evt.data.listUsers);
     };
     fetchUsers();

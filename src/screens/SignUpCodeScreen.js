@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpCodeScreen = ({ userData }) => {
+const SignUpCodeScreen = ({ navigation, userData }) => {
   console.log(userData);
   const [code, setCode] = useState('');
   const [invalidCodeError, setInvalidCodeError] = useState(null);
@@ -27,6 +27,7 @@ const SignUpCodeScreen = ({ userData }) => {
       console.log(userData);
       console.log(userData.username);
       await Auth.confirmSignUp(userData.username, code);
+      navigation.navigate('Complete Profile');
     } catch (error) {
       setInvalidCodeError(error);
       console.log('error confirming sign up', error);

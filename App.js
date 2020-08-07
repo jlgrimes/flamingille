@@ -23,6 +23,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
+import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -122,21 +123,31 @@ const App = ({ userData, setUserData, wipeUserData }) => {
 
   return (
     <NavigationContainer>
-      {renderHome() ? (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            initialParams={{ logOut }}
-          />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Sign Up" component={SignUpScreen} />
-          <Stack.Screen name="Sign Up Code" component={SignUpCodeScreen} />
-        </Stack.Navigator>
-      )}
+      <Stack.Navigator>
+        {
+          // we render home this way because of "protected routes" and stuff like
+          // more info here: https://reactnavigation.org/docs/auth-flow
+          renderHome() ? (
+            <>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                initialParams={{ logOut }}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Sign Up" component={SignUpScreen} />
+              <Stack.Screen name="Sign Up Code" component={SignUpCodeScreen} />
+            </>
+          )
+        }
+        <Stack.Screen
+          name="Complete Profile"
+          component={CompleteProfileScreen}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

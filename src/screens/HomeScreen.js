@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { wipeUserData } from '../redux/actions';
 import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
@@ -10,7 +10,7 @@ import { Auth } from 'aws-amplify';
 import HomeCardStack from '../components/Home/HomeCardStack';
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createUser } from '../graphql/mutations';
+import { listUsers } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +20,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({ userData, wipeUserData }) => {
-  console.log(userData);
-
+const HomeScreen = ({ navigation, userData, wipeUserData }) => {
+  /*
   const addDummyUser = async () => {
     const userDetails = {
       username: userData.username,
@@ -35,11 +34,34 @@ const HomeScreen = ({ userData, wipeUserData }) => {
     );
     console.log(res);
   };
+  */
+
+  const checkIfProfileExists = async () => {
+    const filter = {
+      username: {
+        eq: userData.username,
+      },
+    };
+    const res = await API.graphql(
+      graphqlOperation(listUsers, { filter: filter }),
+    );
+    return res.data.listUsers.items.length > 0;
+  };
+
+  useEffect(() => {
+    const routeToCompleteProfile = async () => {
+      const profileExists = await checkIfProfileExists();
+      if (!profileExists) {
+        navigation.navigate('Complete Profile');
+      }
+    };
+    routeToCompleteProfile();
+  }, []);
 
   return (
     <View style={styles.container}>
       <HomeCardStack />
-      <Button onPress={addDummyUser}>add dummy</Button>
+      {/*<Button onPress={addDummyUser}>add dummy</Button>*/}
       <Button onPress={() => Auth.signOut()}>Sign Out</Button>
     </View>
   );
