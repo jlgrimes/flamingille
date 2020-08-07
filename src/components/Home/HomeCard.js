@@ -1,14 +1,15 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Title, Paragraph, Modal } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { createMatch } from '../../graphql/mutations';
+import { listMatches } from '../../graphql/queries';
 
 const styles = StyleSheet.create({
   icons: {
@@ -18,6 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
+  const [matchedPerson, setMatchedPerson] = useState(null);
+
   const matchWithCandidate = async () => {
     const target = user;
     const sender = userDbData.currentUser.items[0];
@@ -34,30 +37,62 @@ const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
     // console.log(res);
 
     setCurrentUserDbData(res);
+
+    await checkMatchCompleted(sender.id, target.id);
   };
+
+  const checkMatchCompleted = async (senderId, targetId) => {
+    // now we look up the match but in reverse. if the other person matched you,
+    // it's a match made in heaven!
+    const reverseMatchFilter = {
+      sender: {
+        eq: targetId,
+      },
+      target: {
+        eq: senderId,
+      },
+      status: {
+        eq: true,
+      },
+    };
+
+    const matches = await API.graphql(
+      graphqlOperation(listMatches, { input: reverseMatchFilter }),
+    );
+    const matchesList = matches.data.listMatches.items;
+    if (matchesList.length > 0) {
+      setMatchedPerson(user.name);
+    }
+  };
+
   return (
-    <Card>
-      <Card.Content>
-        <Title>{user.name}</Title>
-        <Paragraph>{user.description}</Paragraph>
-        <View style={styles.icons}>
-          <Icon
-            raised
-            name="heart"
-            type="ionicon"
-            color="red"
-            onPress={() => matchWithCandidate()}
-          />
-          <Icon
-            raised
-            name="close"
-            type="ionicon"
-            color="gray"
-            onPress={() => console.log('nope')}
-          />
-        </View>
-      </Card.Content>
-    </Card>
+    <>
+      <Modal visible={matchedPerson} onDismiss={() => setMatchedPerson(null)}>
+        <Text>You matched with {matchedPerson}! Go text them</Text>
+      </Modal>
+      <Card>
+        <Card.Content>
+          <Title>{user.name}</Title>
+          <Paragraph>{user.description}</Paragraph>
+          <View style={styles.icons}>
+            <Icon
+              raised
+              name="heart"
+              type="ionicon"
+              color="red"
+              onPress={() => matchWithCandidate()}
+            />
+            <Icon
+              raised
+              name="close"
+              type="ionicon"
+              color="gray"
+              onPress={() => console.log('nope')}
+            />
+          </View>
+        </Card.Content>
+      </Card>
+    </>
   );
 };
 
