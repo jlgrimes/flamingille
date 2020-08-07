@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
 import { View, StyleSheet, Text } from 'react-native';
+import { Provider, Portal } from 'react-native-paper';
+
 import HomeCardStack from '../components/Home/HomeCardStack';
+import MatchedModal from '../components/Home/MatchedModal';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers, listMatches } from '../graphql/queries';
@@ -97,6 +100,7 @@ const HomeScreen = ({
   return (
     <View style={styles.container}>
       <HomeCardStack />
+      <MatchedModal />
     </View>
   );
 };

@@ -18,9 +18,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
-  const [matchedPerson, setMatchedPerson] = useState(null);
-
+const HomeCard = ({
+  navigation,
+  user,
+  userDbData,
+  setCurrentUserDbData,
+  setCandidateUsers,
+  addCandidateUser,
+  toggleMatch,
+}) => {
   const matchWithCandidate = async () => {
     const target = user;
     const sender = userDbData.currentUser.items[0];
@@ -34,11 +40,14 @@ const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
     const res = await API.graphql(
       graphqlOperation(createMatch, { input: match }),
     );
-    // console.log(res);
-
-    setCurrentUserDbData(res);
 
     await checkMatchCompleted(sender.id, target.id);
+
+    setCandidateUsers(
+      userDbData.candidateUsers.filter(
+        (candidateUser) => candidateUser.id === sender.id,
+      ),
+    );
   };
 
   const checkMatchCompleted = async (senderId, targetId) => {
@@ -57,19 +66,17 @@ const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
     };
 
     const matches = await API.graphql(
-      graphqlOperation(listMatches, { input: reverseMatchFilter }),
+      graphqlOperation(listMatches, { filter: reverseMatchFilter }),
     );
+    console.log(matches);
     const matchesList = matches.data.listMatches.items;
     if (matchesList.length > 0) {
-      setMatchedPerson(user.name);
+      toggleMatch(user);
     }
   };
 
   return (
     <>
-      <Modal visible={matchedPerson} onDismiss={() => setMatchedPerson(null)}>
-        <Text>You matched with {matchedPerson}! Go text them</Text>
-      </Modal>
       <Card>
         <Card.Content>
           <Title>{user.name}</Title>

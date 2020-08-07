@@ -13,7 +13,7 @@ const HomeCardStack = ({ navigation, userDbData }) => {
       {homeCardUsers && homeCardUsers.length > 0 ? (
         homeCardUsers.map((user) => <HomeCard key={user.id} user={user} />)
       ) : (
-        <Text>Nobody is left :(</Text>
+        <Text>Nobody there :(</Text>
       )}
     </>
   );

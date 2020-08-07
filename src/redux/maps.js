@@ -3,6 +3,8 @@ import {
   wipeUserAuthData,
   setCurrentUserDbData,
   setCandidateUsers,
+  addCandidateUser,
+  toggleMatch,
 } from './actions';
 
 const mapStateToProps = (state) => {
@@ -12,6 +14,7 @@ const mapStateToProps = (state) => {
       currentUser: state.userDbData.currentUser,
       candidateUsers: state.userDbData.candidateUsers,
     },
+    matched: state.matched,
   };
 };
 
@@ -23,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentUserDbData: (currentUser) =>
       dispatch(setCurrentUserDbData(currentUser)),
     setCandidateUsers: (cand) => dispatch(setCandidateUsers(cand)),
+    addCandidateUser: (candidateUser) =>
+      dispatch(addCandidateUser(candidateUser)),
+    toggleMatch: (match) => dispatch(toggleMatch(match)),
   };
 };
 

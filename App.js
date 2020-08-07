@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 
 // UI Library Imports
+import { Provider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
