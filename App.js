@@ -109,12 +109,6 @@ const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
     hubListen();
   }, []);
 
-  const logOut = async () => {
-    await Auth.signOut();
-    wipeUserAuthData();
-    setUserAuthDataStorage();
-  };
-
   // console.log(userAuthData);
 
   const renderHome = () => {
@@ -150,11 +144,7 @@ const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
             })}>
-            <Tab.Screen
-              name={screenNames.home}
-              component={HomeScreen}
-              initialParams={{ logOut }}
-            />
+            <Tab.Screen name={screenNames.home} component={HomeScreen} />
             <Tab.Screen
               name={screenNames.settings}
               component={SettingsScreen}
