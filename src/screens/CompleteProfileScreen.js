@@ -5,9 +5,6 @@ import { mapStateToProps } from '../redux/maps';
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
-import { Auth } from 'aws-amplify';
-
-import { SocialButtons } from '../components/SocialButtons';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { createUser } from '../graphql/mutations';

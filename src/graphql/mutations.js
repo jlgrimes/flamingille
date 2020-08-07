@@ -37,7 +37,7 @@ export const createMatch = /* GraphQL */ `
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
@@ -47,7 +47,7 @@ export const updateMatch = /* GraphQL */ `
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
@@ -57,7 +57,7 @@ export const deleteMatch = /* GraphQL */ `
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;

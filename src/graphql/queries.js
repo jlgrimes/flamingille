@@ -34,7 +34,7 @@ export const getMatch = /* GraphQL */ `
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
@@ -49,7 +49,7 @@ export const listMatches = /* GraphQL */ `
         id
         sender
         target
-        resolved
+        status
       }
       nextToken
     }

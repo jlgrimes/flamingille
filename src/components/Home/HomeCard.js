@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { connect } from 'react-redux';
-import { mapStateToProps } from '../../redux/maps';
+import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
+
+import { API, graphqlOperation } from 'aws-amplify';
+import { createMatch } from '../../graphql/mutations';
 
 const styles = StyleSheet.create({
   icons: {
@@ -14,7 +17,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeCard = ({ navigation, user }) => {
+const HomeCard = ({ navigation, user, userDbData, setCurrentUserDbData }) => {
+  const matchWithCandidate = async () => {
+    const target = user;
+    const sender = userDbData.currentUser.items[0];
+
+    const match = {
+      sender: sender.id,
+      target: target.id,
+      status: true,
+    };
+
+    const res = await API.graphql(
+      graphqlOperation(createMatch, { input: match }),
+    );
+    // console.log(res);
+
+    setCurrentUserDbData(res);
+  };
   return (
     <Card>
       <Card.Content>
@@ -26,7 +46,7 @@ const HomeCard = ({ navigation, user }) => {
             name="heart"
             type="ionicon"
             color="red"
-            onPress={() => console.log('hello')}
+            onPress={() => matchWithCandidate()}
           />
           <Icon
             raised
@@ -41,4 +61,4 @@ const HomeCard = ({ navigation, user }) => {
   );
 };
 
-export default connect(mapStateToProps)(HomeCard);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeCard);

@@ -72,18 +72,13 @@ export const onCreateMatch = /* GraphQL */ `
     $id: ID
     $sender: ID
     $target: ID
-    $resolved: Boolean
+    $status: Boolean
   ) {
-    onCreateMatch(
-      id: $id
-      sender: $sender
-      target: $target
-      resolved: $resolved
-    ) {
+    onCreateMatch(id: $id, sender: $sender, target: $target, status: $status) {
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
@@ -92,18 +87,13 @@ export const onUpdateMatch = /* GraphQL */ `
     $id: ID
     $sender: ID
     $target: ID
-    $resolved: Boolean
+    $status: Boolean
   ) {
-    onUpdateMatch(
-      id: $id
-      sender: $sender
-      target: $target
-      resolved: $resolved
-    ) {
+    onUpdateMatch(id: $id, sender: $sender, target: $target, status: $status) {
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
@@ -112,18 +102,13 @@ export const onDeleteMatch = /* GraphQL */ `
     $id: ID
     $sender: ID
     $target: ID
-    $resolved: Boolean
+    $status: Boolean
   ) {
-    onDeleteMatch(
-      id: $id
-      sender: $sender
-      target: $target
-      resolved: $resolved
-    ) {
+    onDeleteMatch(id: $id, sender: $sender, target: $target, status: $status) {
       id
       sender
       target
-      resolved
+      status
     }
   }
 `;
