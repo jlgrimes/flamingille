@@ -24,6 +24,7 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 // Constants imports
 import { screenNames } from './src/constants/screenNames';
@@ -136,16 +137,19 @@ const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
 
-                if (route.name === 'Home') {
+                if (route.name === screenNames.home) {
                   iconName = focused ? 'home' : 'home-outline';
-                } else if (route.name === 'Settings') {
+                } else if (route.name === screenNames.settings) {
                   iconName = focused ? 'settings' : 'settings-outline';
+                } else if (route.name === screenNames.profile) {
+                  iconName = focused ? 'person' : 'person-outline';
                 }
 
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
             })}>
             <Tab.Screen name={screenNames.home} component={HomeScreen} />
+            <Tab.Screen name={screenNames.profile} component={ProfileScreen} />
             <Tab.Screen
               name={screenNames.settings}
               component={SettingsScreen}
