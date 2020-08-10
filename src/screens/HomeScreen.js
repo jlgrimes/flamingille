@@ -10,6 +10,9 @@ import MatchedModal from '../components/Home/MatchedModal';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers, listMatches } from '../graphql/queries';
+import { fetchCurrentUser } from '../graphql/functions/user';
+
+import { screenNames } from '../constants/screenNames';
 
 const styles = StyleSheet.create({
   container: {
@@ -64,20 +67,6 @@ const HomeScreen = ({
       });
 
       return filteredCandidates;
-    };
-
-    // yeah yeah this code looks incredibly redundant, but hopefully the fetchUsers
-    // function will at least be somewhat different than, the opposite of this one...
-    const fetchCurrentUser = async () => {
-      const filter = {
-        username: {
-          eq: userAuthData.username,
-        },
-      };
-      const evt = await API.graphql(
-        graphqlOperation(listUsers, { filter: filter }),
-      );
-      return evt.data.listUsers;
     };
 
     const onHomeScreenRender = async () => {

@@ -56,7 +56,12 @@ Amplify.configure({
   },
 });
 
-const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
+const App = ({
+  userAuthData,
+  setUserAuthData,
+  wipeUserAuthData,
+  userDbData,
+}) => {
   const setUserAuthDataStorage = async (userAuthData) => {
     userAuthData = userAuthData ? userAuthData : '';
     try {
@@ -118,7 +123,7 @@ const App = ({ userAuthData, setUserAuthData, wipeUserAuthData }) => {
       if (userAuthData.username.includes('Google')) {
         return true;
       }
-      if (userAuthData.attributes.email_verified) {
+      if (userAuthData.attributes && userAuthData.attributes.email_verified) {
         return true;
       }
       return false;

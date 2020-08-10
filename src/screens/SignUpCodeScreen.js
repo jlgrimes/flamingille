@@ -23,6 +23,8 @@ const SignUpCodeScreen = ({ navigation, userAuthData }) => {
 
   const confirmCode = async () => {
     try {
+      console.log(userAuthData.username);
+      console.log(code);
       await Auth.confirmSignUp(userAuthData.username, code);
       navigation.navigate('Complete Profile');
     } catch (error) {
@@ -33,6 +35,7 @@ const SignUpCodeScreen = ({ navigation, userAuthData }) => {
 
   return (
     <View style={styles.container}>
+      <Text>Please check your email for a code and enter it below.</Text>
       <TextInput
         label="Code"
         onChange={(e) => setCode(e.nativeEvent.text)}

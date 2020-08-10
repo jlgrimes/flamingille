@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import StandardLogin from '../components/Login/StandardLogin';
 import SignUpButton from '../components/Login/SignUpButton';
 import { SocialButtons } from '../components/SocialButtons';
+
+import { connect } from 'react-redux';
+import { mapStateToProps } from '../redux/maps';
+
+import { screenNames } from '../constants/screenNames';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +18,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, userDbData }) => {
+  useEffect(() => {
+    if (userDbData.currentUser && userDbData.currentUser.items.length === 0) {
+      navigation.navigate(screenNames.completeProfile);
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <StandardLogin />
@@ -23,4 +34,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default connect(mapStateToProps)(LoginScreen);
