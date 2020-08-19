@@ -20,6 +20,8 @@ target 'flamingille' do
 
   #pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'flamingilleTests' do
     inherit! :complete
     # Pods for testing

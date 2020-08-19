@@ -2,17 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
-import { View, StyleSheet, Text } from 'react-native';
-import { Provider, Portal } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
 
 import HomeCardStack from '../components/Home/HomeCardStack';
 import MatchedModal from '../components/Home/MatchedModal';
 
-import { API, graphqlOperation } from 'aws-amplify';
-import { listUsers, listMatches } from '../graphql/queries';
-import { fetchCurrentUser } from '../graphql/functions/user';
-
-import { screenNames } from '../constants/screenNames';
+// funcitons import
+import { fetchCurrentUser } from '../functions/userTableQueries';
+import { fetchMatches, fetchCandidates } from '../functions/matchTableQueries';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,53 +19,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({
-  navigation,
-  userAuthData,
-  userDbData,
-  setCurrentUserDbData,
-  setCandidateUsers,
-}) => {
+const HomeScreen = ({ setCurrentUserDbData, setCandidateUsers }) => {
   useEffect(() => {
-    const fetchMatches = async (currentUser) => {
-      const currentUserId = currentUser.items[0].id;
-      const filter = {
-        sender: {
-          eq: currentUserId,
-        },
-      };
-      const matches = await API.graphql(
-        graphqlOperation(listMatches, { filter: filter }),
-      );
-      return matches.data.listMatches.items;
-    };
-
-    // this is where the "sorting algorithm is going to take place"
-    // all we have for our sorting algorithm now is, are they not the logged in person
-    const fetchCandidates = async (currentUser, matches) => {
-      const filter = {
-        username: {
-          ne: userAuthData.username,
-        },
-      };
-      const evt = await API.graphql(
-        graphqlOperation(listUsers, { filter: filter }),
-      );
-
-      const currentUserId = currentUser.items[0].id;
-      const candidates = evt.data.listUsers.items;
-
-      const filteredCandidates = candidates.filter((candidate) => {
-        const targetMatches = matches.filter(
-          (match) =>
-            match.sender === currentUserId && match.target === candidate.id,
-        );
-        return targetMatches.length === 0;
-      });
-
-      return filteredCandidates;
-    };
-
     const onHomeScreenRender = async () => {
       // fetches the current user from the database
       const currentUser = await fetchCurrentUser();

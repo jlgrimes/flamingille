@@ -1,21 +1,19 @@
 // React imports
-import React, { useState, useEffect } from 'react';
-import { Linking, AsyncStorage } from 'react-native';
+import React, { useEffect } from 'react';
 
 // AWS imports
 import awsconfig from './aws-exports.js';
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import Amplify from 'aws-amplify';
 
 // Redux imports
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 
 // UI Library Imports
-import { Provider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Component imports
 import HomeScreen from './src/screens/HomeScreen';
@@ -24,29 +22,17 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
 
 // Constants imports
 import { screenNames } from './src/constants/screenNames';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// function imports
+import { loadUserAuthDataFromStorage } from './src/functions/userStorage';
+import { urlOpener } from './src/functions/urlOpener';
+import { hubListen } from './src/functions/cognitoAuth';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-async function urlOpener(url, redirectUrl) {
-  await InAppBrowser.isAvailable();
-  const { type, url: newUrl } = await InAppBrowser.openAuth(url, redirectUrl, {
-    showTitle: false,
-    enableUrlBarHiding: true,
-    enableDefaultShare: false,
-    ephemeralWebSession: false,
-  });
-
-  if (type === 'success') {
-    Linking.openURL(newUrl);
-  }
-}
 
 Amplify.configure({
   ...awsconfig,
@@ -62,51 +48,7 @@ const App = ({
   wipeUserAuthData,
   userDbData,
 }) => {
-  const setUserAuthDataStorage = async (userAuthData) => {
-    userAuthData = userAuthData ? userAuthData : '';
-    try {
-      await AsyncStorage.setItem('userAuthData', JSON.stringify(userAuthData));
-    } catch (error) {
-      console.log('Error with storing user data', error);
-    }
-  };
-
-  const getUserAuthDataStorage = async () => {
-    const userAuthData = await AsyncStorage.getItem('userAuthData');
-    const data = JSON.parse(userAuthData);
-    return data;
-  };
-
-  const loadUserAuthDataFromStorage = async () => {
-    const userAuthData = await getUserAuthDataStorage();
-    setUserAuthData(userAuthData);
-  };
-
   useEffect(() => {
-    const hubListen = async () => {
-      Hub.listen('auth', ({ payload: { event, data } }) => {
-        console.log(event);
-        switch (event) {
-          case 'signIn':
-            setUserAuthData(data);
-            setUserAuthDataStorage(data);
-            break;
-          case 'cognitoHostedUI':
-            break;
-          case 'signOut':
-            wipeUserAuthData();
-            setUserAuthDataStorage(null);
-            break;
-          case 'signIn_failure':
-            console.log('Sign in failure!!', data);
-            break;
-          case 'cognitoHostedUI_failure':
-            console.log('Sign in failure', data);
-            break;
-        }
-      });
-    };
-
     // first thing we want to do on app load is load the user data from storage
     // based on this call, the "userAuthData" variable will be set which changes the render
     // method of Login/Home
@@ -154,7 +96,7 @@ const App = ({
               },
             })}>
             <Tab.Screen name={screenNames.home} component={HomeScreen} />
-            <Tab.Screen name={screenNames.profile} component={ProfileScreen} />
+            {/*<Tab.Screen name={screenNames.profile} component={ProfileScreen} /> */}
             <Tab.Screen
               name={screenNames.settings}
               component={SettingsScreen}

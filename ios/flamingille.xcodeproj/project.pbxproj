@@ -20,6 +20,7 @@
 		9D146B5D5461511F53001C21 /* libPods-flamingille-flamingilleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A925B4029ABEA4FD649423 /* libPods-flamingille-flamingilleTests.a */; };
 		B3B9B47824D4E40400BD6341 /* libRNAWSCognito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B9B47724D4E40400BD6341 /* libRNAWSCognito.a */; };
 		C6B6E7E9B9F80CE41F650B09 /* libPods-flamingille-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578C5F18C35F335ED22BE71 /* libPods-flamingille-tvOSTests.a */; };
+		FC52C1291C797F51A4C5E52A /* libPods-flamingille.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2344F0733095E7F62D05F3 /* libPods-flamingille.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B9B47824D4E40400BD6341 /* libRNAWSCognito.a in Frameworks */,
+				FC52C1291C797F51A4C5E52A /* libPods-flamingille.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
