@@ -7,17 +7,7 @@ import {
   TOGGLE_MATCH,
 } from '../constants/action-types';
 
-const initialState = {
-  userAuthData: null,
-  userDbData: {
-    currentUser: null,
-    candidateUsers: [],
-  },
-
-  // matched is what renders the "you got a match! modal"
-  // if it's not null, it's the user of the person you matched with
-  matched: null,
-};
+import { initialState } from '../constants/initial-state';
 
 function rootReducer(state = initialState, action) {
   if (action.type === SET_USER_AUTH_DATA) {
