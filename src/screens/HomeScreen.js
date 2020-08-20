@@ -8,11 +8,7 @@ import HomeCardStack from '../components/Home/HomeCardStack';
 import MatchedModal from '../components/Home/MatchedModal';
 
 // functions import
-import {
-  fetchCurrentUser,
-  fetchMatches,
-  fetchCandidates,
-} from '../functions/queries/';
+import { fetchCurrentUser, fetchMatches, fetchCandidates } from '../functions';
 
 const styles = StyleSheet.create({
   container: {
