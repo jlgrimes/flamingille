@@ -22,7 +22,14 @@ const HomeScreen = ({ setCurrentUserDbData, setCandidateUsers }) => {
   useEffect(() => {
     const onHomeScreenRender = async () => {
       // fetches the current user from the database
-      const currentUser = await fetchCurrentUser();
+      let currentUserResponse = await fetchCurrentUser();
+
+      if (currentUserResponse.items && currentUserResponse.items.length === 0) {
+        setCurrentUserDbData(null);
+        return;
+      }
+
+      const currentUser = currentUserResponse.items[0];
       setCurrentUserDbData(currentUser);
 
       // fetches the matches that the current user has made

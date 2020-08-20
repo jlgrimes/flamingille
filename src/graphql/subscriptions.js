@@ -113,53 +113,35 @@ export const onDeleteMatch = /* GraphQL */ `
   }
 `;
 export const onCreateConversationUsers = /* GraphQL */ `
-  subscription OnCreateConversationUsers(
-    $conversationID: ID
-    $senderUserID: ID
-    $targetUserID: ID
-  ) {
+  subscription OnCreateConversationUsers($conversationID: ID, $userID: ID) {
     onCreateConversationUsers(
       conversationID: $conversationID
-      senderUserID: $senderUserID
-      targetUserID: $targetUserID
+      userID: $userID
     ) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;
 export const onUpdateConversationUsers = /* GraphQL */ `
-  subscription OnUpdateConversationUsers(
-    $conversationID: ID
-    $senderUserID: ID
-    $targetUserID: ID
-  ) {
+  subscription OnUpdateConversationUsers($conversationID: ID, $userID: ID) {
     onUpdateConversationUsers(
       conversationID: $conversationID
-      senderUserID: $senderUserID
-      targetUserID: $targetUserID
+      userID: $userID
     ) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;
 export const onDeleteConversationUsers = /* GraphQL */ `
-  subscription OnDeleteConversationUsers(
-    $conversationID: ID
-    $senderUserID: ID
-    $targetUserID: ID
-  ) {
+  subscription OnDeleteConversationUsers($conversationID: ID, $userID: ID) {
     onDeleteConversationUsers(
       conversationID: $conversationID
-      senderUserID: $senderUserID
-      targetUserID: $targetUserID
+      userID: $userID
     ) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;

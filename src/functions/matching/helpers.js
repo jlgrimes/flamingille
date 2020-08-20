@@ -34,7 +34,7 @@ const matchWithCandidate = async () => {
   const { user, userDbData } = state;
 
   const target = user;
-  const sender = userDbData.currentUser.items[0];
+  const sender = userDbData.currentUser;
 
   const match = {
     sender: sender.id,

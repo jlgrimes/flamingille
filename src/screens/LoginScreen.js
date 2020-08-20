@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 const LoginScreen = ({ navigation, userDbData }) => {
   useEffect(() => {
-    if (userDbData.currentUser && userDbData.currentUser.items.length === 0) {
+    if (!userDbData.currentUser) {
       navigation.navigate(screenNames.completeProfile);
     }
   }, []);

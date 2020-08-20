@@ -1,10 +1,7 @@
 import { Hub } from 'aws-amplify';
 import store from '../../redux/store';
-import {
-  setUserAuthData,
-  setUserAuthDataStorage,
-  wipeUserAuthData,
-} from '../../redux/actions';
+import { setUserAuthData, wipeUserAuthData } from '../../redux/actions';
+import { setUserAuthDataStorage } from '../../functions';
 
 export const hubListen = async () => {
   Hub.listen('auth', ({ payload: { event, data } }) => {

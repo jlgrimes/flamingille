@@ -6,6 +6,8 @@ import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Auth } from 'aws-amplify';
 
+import { getConversationUsersEntries } from '../functions'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,6 +20,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <Button onPress={() => Auth.signOut()}>Sign Out</Button>
+      <Button onPress={() => getConversationUsersEntries()}>test</Button>
     </View>
   );
 };

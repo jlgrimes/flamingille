@@ -65,8 +65,7 @@ export const createConversationUsers = /* GraphQL */ `
   mutation CreateConversationUsers($input: CreateConversationUsersInput!) {
     createConversationUsers(input: $input) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;
@@ -74,8 +73,7 @@ export const updateConversationUsers = /* GraphQL */ `
   mutation UpdateConversationUsers($input: UpdateConversationUsersInput!) {
     updateConversationUsers(input: $input) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;
@@ -83,8 +81,7 @@ export const deleteConversationUsers = /* GraphQL */ `
   mutation DeleteConversationUsers($input: DeleteConversationUsersInput!) {
     deleteConversationUsers(input: $input) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;

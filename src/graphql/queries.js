@@ -59,8 +59,7 @@ export const getConversationUsers = /* GraphQL */ `
   query GetConversationUsers($conversationID: ID!) {
     getConversationUsers(conversationID: $conversationID) {
       conversationID
-      senderUserID
-      targetUserID
+      userID
     }
   }
 `;
@@ -77,8 +76,7 @@ export const listConversationUsers = /* GraphQL */ `
     ) {
       items {
         conversationID
-        senderUserID
-        targetUserID
+        userID
       }
       nextToken
     }

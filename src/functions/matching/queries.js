@@ -4,7 +4,7 @@ import store from '../../redux/store';
 
 // used in Homescreen.js
 export const fetchMatches = async (currentUser) => {
-  const currentUserId = currentUser.items[0].id;
+  const currentUserId = currentUser.id;
   const filter = {
     sender: {
       eq: currentUserId,
@@ -31,7 +31,7 @@ export const fetchCandidates = async (currentUser, matches) => {
     graphqlOperation(listUsers, { filter: filter }),
   );
 
-  const currentUserId = currentUser.items[0].id;
+  const currentUserId = currentUser.id;
   const candidates = evt.data.listUsers.items;
 
   const filteredCandidates = candidates.filter((candidate) => {
