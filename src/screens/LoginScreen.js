@@ -8,7 +8,7 @@ import { SocialButtons } from '../components/SocialButtons';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../redux/maps';
 
-import { screenNames } from '../constants/screenNames';
+import { screenNames } from '../constants/screenMetadata';
 
 const styles = StyleSheet.create({
   container: {

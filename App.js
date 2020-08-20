@@ -13,23 +13,24 @@ import { mapStateToProps, mapDispatchToProps } from './src/redux/maps';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Component imports
+// Screen imports
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ConversationsScreen from './src/screens/ConversationsScreen';
 
 // Constants imports
-import { screenNames } from './src/constants/screenNames';
+import { screenNames } from './src/constants/screenMetadata';
 
 // function imports
 import { loadUserAuthDataFromStorage } from './src/functions/userStorage';
 import { urlOpener } from './src/functions/urlOpener';
 import { hubListen } from './src/functions/cognitoAuth';
+import { TabBarIcon } from './src/components/TabBarIcon';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -82,20 +83,21 @@ const App = ({
           <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-                if (route.name === screenNames.home) {
-                  iconName = focused ? 'home' : 'home-outline';
-                } else if (route.name === screenNames.settings) {
-                  iconName = focused ? 'settings' : 'settings-outline';
-                } else if (route.name === screenNames.profile) {
-                  iconName = focused ? 'person' : 'person-outline';
-                }
-
-                return <Ionicons name={iconName} size={size} color={color} />;
+                return (
+                  <TabBarIcon
+                    route={route}
+                    focused={focused}
+                    color={color}
+                    size={size}
+                  />
+                );
               },
             })}>
             <Tab.Screen name={screenNames.home} component={HomeScreen} />
+            <Tab.Screen
+              name={screenNames.conversations}
+              component={ConversationsScreen}
+            />
             {/*<Tab.Screen name={screenNames.profile} component={ProfileScreen} /> */}
             <Tab.Screen
               name={screenNames.settings}

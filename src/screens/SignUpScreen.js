@@ -9,7 +9,7 @@ import { Auth } from 'aws-amplify';
 
 import { SocialButtons } from '../components/SocialButtons';
 
-import { screenNames } from '../constants/screenNames';
+import { screenNames } from '../constants/screenMetadata';
 
 const styles = StyleSheet.create({
   container: {

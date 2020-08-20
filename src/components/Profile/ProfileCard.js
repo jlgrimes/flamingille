@@ -14,15 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeCard = ({
-  navigation,
-  user,
-  userDbData,
-  setCurrentUserDbData,
-  setCandidateUsers,
-  addCandidateUser,
-  toggleMatch,
-}) => {
+const HomeCard = ({ user }) => {
   return (
     <>
       <Card>
