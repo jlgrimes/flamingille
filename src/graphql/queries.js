@@ -55,3 +55,82 @@ export const listMatches = /* GraphQL */ `
     }
   }
 `;
+export const getConversationUsers = /* GraphQL */ `
+  query GetConversationUsers($conversationID: ID!) {
+    getConversationUsers(conversationID: $conversationID) {
+      conversationID
+      senderUserID
+      targetUserID
+    }
+  }
+`;
+export const listConversationUsers = /* GraphQL */ `
+  query ListConversationUsers(
+    $filter: TableConversationUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listConversationUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        conversationID
+        senderUserID
+        targetUserID
+      }
+      nextToken
+    }
+  }
+`;
+export const getConversation = /* GraphQL */ `
+  query GetConversation($id: ID!) {
+    getConversation(id: $id) {
+      id
+      messages
+    }
+  }
+`;
+export const listConversations = /* GraphQL */ `
+  query ListConversations(
+    $filter: TableConversationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        messages
+      }
+      nextToken
+    }
+  }
+`;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      senderUser
+      content
+      timestamp
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: TableMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        senderUser
+        content
+        timestamp
+      }
+      nextToken
+    }
+  }
+`;
