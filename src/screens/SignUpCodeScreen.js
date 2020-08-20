@@ -7,8 +7,6 @@ import { TextInput, HelperText } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
-import { SocialButtons } from '../components/SocialButtons';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,8 +21,6 @@ const SignUpCodeScreen = ({ navigation, userAuthData }) => {
 
   const confirmCode = async () => {
     try {
-      console.log(userAuthData.username);
-      console.log(code);
       await Auth.confirmSignUp(userAuthData.username, code);
       navigation.navigate('Complete Profile');
     } catch (error) {

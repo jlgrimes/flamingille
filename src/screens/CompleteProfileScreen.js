@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../redux/maps';
 
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
 
@@ -36,9 +36,6 @@ const CompleteProfileScreen = ({ navigation, userAuthData }) => {
       return;
     }
 
-    console.log(names);
-    console.log(description);
-
     const userDetails = {
       username: userAuthData.username,
       name: names,
@@ -47,7 +44,7 @@ const CompleteProfileScreen = ({ navigation, userAuthData }) => {
     const res = await API.graphql(
       graphqlOperation(createUser, { input: userDetails }),
     );
-    console.log(res);
+
     navigation.navigate('Home');
   };
 

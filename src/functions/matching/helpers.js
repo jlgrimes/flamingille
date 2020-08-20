@@ -23,7 +23,6 @@ const checkMatchCompleted = async (senderId, targetId) => {
   const matches = await API.graphql(
     graphqlOperation(listMatches, { filter: reverseMatchFilter }),
   );
-  console.log(matches);
   const matchesList = matches.data.listMatches.items;
   if (matchesList.length > 0) {
     store.dispatch(toggleMatch(state.user));

@@ -1,6 +1,6 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { screenNames, screenIcons } from '../constants/screenMetadata';
+import { screenIcons } from '../constants/screenMetadata';
 
 const TabBarIcon = ({ route, focused, color, size }) => {
   let iconName;

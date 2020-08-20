@@ -47,12 +47,7 @@ Amplify.configure({
   },
 });
 
-const App = ({
-  userAuthData,
-  setUserAuthData,
-  wipeUserAuthData,
-  userDbData,
-}) => {
+const App = ({ userAuthData }) => {
   useEffect(() => {
     // first thing we want to do on app load is load the user data from storage
     // based on this call, the "userAuthData" variable will be set which changes the render
@@ -62,8 +57,6 @@ const App = ({
     // this is a listener for login/logout events by Amplify Auth
     hubListen();
   }, []);
-
-  // console.log(userAuthData);
 
   const renderHome = () => {
     if (userAuthData) {

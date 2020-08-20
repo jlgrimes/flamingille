@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
-import { Card, Title, Paragraph, Modal } from 'react-native-paper';
+import { Card, Title, Paragraph } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({

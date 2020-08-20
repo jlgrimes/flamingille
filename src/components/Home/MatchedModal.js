@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,

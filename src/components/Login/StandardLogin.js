@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
-import { Alert } from 'react-native';
-import { TextInput, HelperText, Title } from 'react-native-paper';
+import { TextInput, HelperText } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 

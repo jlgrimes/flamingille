@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
+import { mapStateToProps } from '../redux/maps';
 import { StyleSheet, View } from 'react-native';
 
 import ConversationCard from '../components/Conversations/ConversationCard';

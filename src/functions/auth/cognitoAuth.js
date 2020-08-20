@@ -8,7 +8,7 @@ import {
 
 export const hubListen = async () => {
   Hub.listen('auth', ({ payload: { event, data } }) => {
-    console.log(event);
+    // console.log(event);
     switch (event) {
       case 'signIn':
         store.dispatch(setUserAuthData(data));

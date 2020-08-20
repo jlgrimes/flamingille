@@ -3,7 +3,7 @@
 
 import store from '../../redux/store';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listUsers, listMatches } from '../../graphql/queries';
+import { listUsers } from '../../graphql/queries';
 
 export const fetchCurrentUser = async () => {
   const state = store.getState();
