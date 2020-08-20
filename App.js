@@ -23,14 +23,18 @@ import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import ConversationsScreen from './src/screens/ConversationsScreen';
 
+// Component imports
+import { TabBarIcon } from './src/components/TabBarIcon';
+
 // Constants imports
 import { screenNames } from './src/constants/screenMetadata';
 
 // function imports
-import { loadUserAuthDataFromStorage } from './src/functions/userStorage';
-import { urlOpener } from './src/functions/urlOpener';
-import { hubListen } from './src/functions/cognitoAuth';
-import { TabBarIcon } from './src/components/TabBarIcon';
+import {
+  loadUserAuthDataFromStorage,
+  urlOpener,
+  hubListen,
+} from './src/functions/auth';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

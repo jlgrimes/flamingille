@@ -7,9 +7,12 @@ import { View, StyleSheet } from 'react-native';
 import HomeCardStack from '../components/Home/HomeCardStack';
 import MatchedModal from '../components/Home/MatchedModal';
 
-// funcitons import
-import { fetchCurrentUser } from '../functions/userTableQueries';
-import { fetchMatches, fetchCandidates } from '../functions/matchTableQueries';
+// functions import
+import {
+  fetchCurrentUser,
+  fetchMatches,
+  fetchCandidates,
+} from '../functions/queries/';
 
 const styles = StyleSheet.create({
   container: {

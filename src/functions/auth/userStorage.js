@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import store from '../redux/store';
-import { setUserAuthData } from '../redux/actions';
+import store from '../../redux/store';
+import { setUserAuthData } from '../../redux/actions';
 
 const setUserAuthDataStorage = async (userAuthData) => {
   userAuthData = userAuthData ? userAuthData : '';

@@ -1,6 +1,6 @@
-import { listUsers, listMatches } from '../graphql/queries';
+import { listUsers, listMatches } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
-import store from '../redux/store';
+import store from '../../redux/store';
 
 // used in Homescreen.js
 export const fetchMatches = async (currentUser) => {
