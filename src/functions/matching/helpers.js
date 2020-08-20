@@ -1,9 +1,9 @@
-import { listMatches } from '../../graphql/queries';
+import { listMatches, createMatch } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import store from '../../redux/store';
-import { toggleMatch } from '../../redux/actions';
+import { toggleMatch, setCandidateUsers } from '../../redux/actions';
 
-export const checkMatchCompleted = async (senderId, targetId) => {
+const checkMatchCompleted = async (senderId, targetId) => {
   const state = store.getState();
 
   // now we look up the match but in reverse. if the other person matched you,
@@ -29,3 +29,31 @@ export const checkMatchCompleted = async (senderId, targetId) => {
     store.dispatch(toggleMatch(state.user));
   }
 };
+
+const matchWithCandidate = async () => {
+  const state = store.getState();
+  const { user, userDbData } = state;
+
+  const target = user;
+  const sender = userDbData.currentUser.items[0];
+
+  const match = {
+    sender: sender.id,
+    target: target.id,
+    status: true,
+  };
+
+  const res = await API.graphql(
+    graphqlOperation(createMatch, { input: match }),
+  );
+
+  await checkMatchCompleted(sender.id, target.id);
+
+  setCandidateUsers(
+    userDbData.candidateUsers.filter(
+      (candidateUser) => candidateUser.id === sender.id,
+    ),
+  );
+};
+
+export { checkMatchCompleted, matchWithCandidate };
