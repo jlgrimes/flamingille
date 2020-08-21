@@ -1,8 +1,8 @@
+import { API, graphqlOperation } from 'aws-amplify';
 import {
   createConversation,
   createConversationUsers,
 } from '../../graphql/mutations';
-import { API, graphqlOperation } from 'aws-amplify';
 
 // when the two users match, create the conversation between them
 const addConversation = async () => {

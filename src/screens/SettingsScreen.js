@@ -6,7 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Auth } from 'aws-amplify';
 
-import { getCurrentUserConversationUsersEntries } from '../functions';
+import { loadConversations } from '../functions';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +20,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <Button onPress={() => Auth.signOut()}>Sign Out</Button>
-      <Button onPress={() => getCurrentUserConversationUsersEntries()}>
-        test
-      </Button>
+      <Button onPress={() => loadConversations()}>test</Button>
     </View>
   );
 };
