@@ -1,16 +1,21 @@
-import { listUsers, listMatches } from '../../graphql/queries';
+import { listConversationUsers } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import store from '../../redux/store';
 
-const getConversationUsersEntries = async () => {
+const getCurrentUserConversationUsersEntries = async () => {
   const state = store.getState();
-  console.log(state.userDbData.currentUser);
 
   const filter = {
-    userID: {
-      eq: state.userDbData.currentUser,
+    conversationID: {
+      eq: state.userDbData.currentUser.id,
     },
   };
+
+  const conversationUsers = await API.graphql(
+    graphqlOperation(listConversationUsers, { filter: filter }),
+  );
+
+  return conversationUsers.data.listConversationUsers.items;
 };
 
-export { getConversationUsersEntries };
+export { getCurrentUserConversationUsersEntries };
