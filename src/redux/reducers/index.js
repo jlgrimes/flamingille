@@ -5,6 +5,7 @@ import {
   SET_CANDIDATE_USERS,
   ADD_CANDIDATE_USER,
   TOGGLE_MATCH,
+  SET_CONVERSATIONS,
 } from '../constants/action-types';
 
 import { initialState } from '../constants/initial-state';
@@ -53,6 +54,12 @@ function rootReducer(state = initialState, action) {
     return {
       ...state,
       matched: action.payload,
+    };
+  }
+  if (action.type === SET_CONVERSATIONS) {
+    return {
+      ...state,
+      conversations: action.payload,
     };
   }
   return state;

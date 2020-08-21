@@ -1,18 +1,18 @@
-import { API, graphqlOperation } from 'aws-amplify';
-import {
-  getCurrentUserConversations,
-  getCurrentUserConversationUsersEntries,
-} from '.';
+import { getCurrentUserConversationUsersEntries, fetchOppositeUserID } from '.';
+import { fetchUser } from '../user';
 
 import store from '../../redux/store';
+import { setConversations } from '../../redux/actions';
 
 const loadConversations = async () => {
   const userConversationsRes = await getCurrentUserConversationUsersEntries();
-  const conversationID = userConversationsRes[0].conversationID;
 
-  const conversations = await getCurrentUserConversations(conversationID);
-
-  console.log(conversations);
+  await userConversationsRes.forEach(async (userConversation) => {
+    const conversationID = userConversation.conversationID;
+    const oppositeUserID = await fetchOppositeUserID(conversationID);
+    console.log(oppositeUserID);
+  });
+  // store.dispatch(setConversations(conversations));
 };
 
 export { loadConversations };

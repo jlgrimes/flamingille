@@ -5,6 +5,7 @@ import {
   SET_CANDIDATE_USERS,
   ADD_CANDIDATE_USER,
   TOGGLE_MATCH,
+  SET_CONVERSATIONS,
 } from '../constants/action-types';
 
 export function setUserAuthData(payload) {
@@ -29,4 +30,8 @@ export function addCandidateUser(payload) {
 
 export function toggleMatch(payload) {
   return { type: TOGGLE_MATCH, payload };
+}
+
+export function setConversations(payload) {
+  return { type: SET_CONVERSATIONS, payload };
 }

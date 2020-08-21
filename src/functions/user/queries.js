@@ -5,7 +5,21 @@ import store from '../../redux/store';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers } from '../../graphql/queries';
 
-export const fetchCurrentUser = async () => {
+const fetchUser = async (userID) => {
+  const filter = {
+    id: {
+      eq: userID,
+    },
+  };
+  const evt = await API.graphql(
+    graphqlOperation(listUsers, { filter: filter }),
+  );
+  return evt.data.listUsers;
+};
+
+// not sure the context of this????
+// we should be able to combine the above function, but again not sure
+const fetchCurrentUser = async () => {
   const state = store.getState();
   const filter = {
     username: {
@@ -17,3 +31,5 @@ export const fetchCurrentUser = async () => {
   );
   return evt.data.listUsers;
 };
+
+export { fetchUser, fetchCurrentUser };

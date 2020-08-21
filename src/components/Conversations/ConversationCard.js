@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react';
 
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
 import { Card, Title, Paragraph } from 'react-native-paper';
 
-const HomeCard = ({ conversation }) => {
+const ConversationCard = ({ conversation }) => {
   return (
     <>
       <Card>
@@ -19,4 +18,4 @@ const HomeCard = ({ conversation }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ConversationCard);
