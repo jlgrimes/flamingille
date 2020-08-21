@@ -112,39 +112,6 @@ export const onDeleteMatch = /* GraphQL */ `
     }
   }
 `;
-export const onCreateConversationUsers = /* GraphQL */ `
-  subscription OnCreateConversationUsers($conversationID: ID, $userID: ID) {
-    onCreateConversationUsers(
-      conversationID: $conversationID
-      userID: $userID
-    ) {
-      conversationID
-      userID
-    }
-  }
-`;
-export const onUpdateConversationUsers = /* GraphQL */ `
-  subscription OnUpdateConversationUsers($conversationID: ID, $userID: ID) {
-    onUpdateConversationUsers(
-      conversationID: $conversationID
-      userID: $userID
-    ) {
-      conversationID
-      userID
-    }
-  }
-`;
-export const onDeleteConversationUsers = /* GraphQL */ `
-  subscription OnDeleteConversationUsers($conversationID: ID, $userID: ID) {
-    onDeleteConversationUsers(
-      conversationID: $conversationID
-      userID: $userID
-    ) {
-      conversationID
-      userID
-    }
-  }
-`;
 export const onCreateConversation = /* GraphQL */ `
   subscription OnCreateConversation($id: ID, $messages: [ID]) {
     onCreateConversation(id: $id, messages: $messages) {
@@ -226,6 +193,39 @@ export const onDeleteMessage = /* GraphQL */ `
       senderUser
       content
       timestamp
+    }
+  }
+`;
+export const onCreateConversationUsers = /* GraphQL */ `
+  subscription OnCreateConversationUsers($userID: ID, $conversationID: ID) {
+    onCreateConversationUsers(
+      userID: $userID
+      conversationID: $conversationID
+    ) {
+      userID
+      conversationID
+    }
+  }
+`;
+export const onUpdateConversationUsers = /* GraphQL */ `
+  subscription OnUpdateConversationUsers($userID: ID, $conversationID: ID) {
+    onUpdateConversationUsers(
+      userID: $userID
+      conversationID: $conversationID
+    ) {
+      userID
+      conversationID
+    }
+  }
+`;
+export const onDeleteConversationUsers = /* GraphQL */ `
+  subscription OnDeleteConversationUsers($userID: ID, $conversationID: ID) {
+    onDeleteConversationUsers(
+      userID: $userID
+      conversationID: $conversationID
+    ) {
+      userID
+      conversationID
     }
   }
 `;

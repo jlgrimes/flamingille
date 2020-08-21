@@ -1,5 +1,5 @@
 import { fetchReverseMatch, addMatch } from '.';
-import { addConversationUsersEntries } from '../conversations';
+import { addConversation, addConversationUsersEntries } from '../conversations';
 import store from '../../redux/store';
 import { toggleMatch, setCandidateUsers } from '../../redux/actions';
 
@@ -29,7 +29,10 @@ const matchWithCandidate = async (cardUser) => {
   // runs queries to see if the match is completed with the addition of this match
   await checkMatchCompleted(sender.id, target.id, cardUser);
 
-  await addConversationUsersEntries(sender.id, target.id);
+  const conversationAddRes = await addConversation();
+  const conversationID = conversationAddRes.data.createConversation.id;
+
+  await addConversationUsersEntries(sender.id, target.id, conversationID);
 
   // updates the redux store accordingly to render the React properly
   store.dispatch(

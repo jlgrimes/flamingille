@@ -61,30 +61,6 @@ export const deleteMatch = /* GraphQL */ `
     }
   }
 `;
-export const createConversationUsers = /* GraphQL */ `
-  mutation CreateConversationUsers($input: CreateConversationUsersInput!) {
-    createConversationUsers(input: $input) {
-      conversationID
-      userID
-    }
-  }
-`;
-export const updateConversationUsers = /* GraphQL */ `
-  mutation UpdateConversationUsers($input: UpdateConversationUsersInput!) {
-    updateConversationUsers(input: $input) {
-      conversationID
-      userID
-    }
-  }
-`;
-export const deleteConversationUsers = /* GraphQL */ `
-  mutation DeleteConversationUsers($input: DeleteConversationUsersInput!) {
-    deleteConversationUsers(input: $input) {
-      conversationID
-      userID
-    }
-  }
-`;
 export const createConversation = /* GraphQL */ `
   mutation CreateConversation($input: CreateConversationInput!) {
     createConversation(input: $input) {
@@ -136,6 +112,30 @@ export const deleteMessage = /* GraphQL */ `
       senderUser
       content
       timestamp
+    }
+  }
+`;
+export const createConversationUsers = /* GraphQL */ `
+  mutation CreateConversationUsers($input: CreateConversationUsersInput!) {
+    createConversationUsers(input: $input) {
+      userID
+      conversationID
+    }
+  }
+`;
+export const updateConversationUsers = /* GraphQL */ `
+  mutation UpdateConversationUsers($input: UpdateConversationUsersInput!) {
+    updateConversationUsers(input: $input) {
+      userID
+      conversationID
+    }
+  }
+`;
+export const deleteConversationUsers = /* GraphQL */ `
+  mutation DeleteConversationUsers($input: DeleteConversationUsersInput!) {
+    deleteConversationUsers(input: $input) {
+      userID
+      conversationID
     }
   }
 `;

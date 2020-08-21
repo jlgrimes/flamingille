@@ -1,8 +1,37 @@
+import {
+  createConversation,
+  createConversationUsers,
+} from '../../graphql/mutations';
+import { API, graphqlOperation } from 'aws-amplify';
+
+// when the two users match, create the conversation between them
+const addConversation = async () => {
+  const entry = {
+    messages: [],
+  };
+  const res = await API.graphql(
+    graphqlOperation(createConversation, { input: entry }),
+  );
+  return res;
+};
+
 // when two users match, they will both be added in the conversationUsers table
-const addConversationUsersEntries = async (userID1, userID2) => {
-  [userID1, userID2].forEach((user) => {
-    console.log(user);
+const addConversationUsersEntries = async (
+  userID1,
+  userID2,
+  conversationID,
+) => {
+  await [userID1, userID2].forEach(async (userID) => {
+    const entry = {
+      conversationID: conversationID,
+      userID: userID,
+    };
+
+    const res = await API.graphql(
+      graphqlOperation(createConversationUsers, { input: entry }),
+    );
+    console.log(res);
   });
 };
 
-export { addConversationUsersEntries };
+export { addConversation, addConversationUsersEntries };
