@@ -1,21 +1,6 @@
 import { listUsers, listMatches } from '../../graphql/queries';
-import { createMatch } from '../../graphql/mutations';
 import { API, graphqlOperation } from 'aws-amplify';
 import store from '../../redux/store';
-
-const addMatch = async (sender, target) => {
-  const match = {
-    sender: sender.id,
-    target: target.id,
-    status: true,
-  };
-
-  const res = await API.graphql(
-    graphqlOperation(createMatch, { input: match }),
-  );
-
-  return res;
-};
 
 // used in Homescreen.js
 const fetchMatches = async (currentUser) => {
@@ -27,7 +12,6 @@ const fetchMatches = async (currentUser) => {
   const matches = await API.graphql(
     graphqlOperation(listMatches, { filter: filter }),
   );
-  console.log(matches);
   return matches.data.listMatches.items;
 };
 
@@ -81,4 +65,4 @@ const fetchCandidates = async (currentUser, matches) => {
   return filteredCandidates;
 };
 
-export { addMatch, fetchMatches, fetchReverseMatch, fetchCandidates };
+export { fetchMatches, fetchReverseMatch, fetchCandidates };

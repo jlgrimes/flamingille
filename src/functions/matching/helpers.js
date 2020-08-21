@@ -1,12 +1,9 @@
-import { listMatches } from '../../graphql/queries';
-import { addMatch, fetchReverseMatch } from './queries';
-import { API, graphqlOperation } from 'aws-amplify';
+import { fetchReverseMatch, addMatch } from '.';
+import { addConversationUsersEntries } from '../conversations';
 import store from '../../redux/store';
 import { toggleMatch, setCandidateUsers } from '../../redux/actions';
 
 const checkMatchCompleted = async (senderId, targetId, cardUser) => {
-  const state = store.getState();
-
   // now we look up the match but in reverse. if the other person matched you,
   // it's a match made in heaven!
   const matchesList = await fetchReverseMatch(senderId, targetId);
@@ -26,9 +23,15 @@ const matchWithCandidate = async (cardUser) => {
   // the "sender" is who is currently logged in
   const sender = userDbData.currentUser;
 
+  // adds the match to the Matches table
   await addMatch(sender, target);
+
+  // runs queries to see if the match is completed with the addition of this match
   await checkMatchCompleted(sender.id, target.id, cardUser);
 
+  await addConversationUsersEntries(sender.id, target.id);
+
+  // updates the redux store accordingly to render the React properly
   store.dispatch(
     setCandidateUsers(
       userDbData.candidateUsers.filter(
