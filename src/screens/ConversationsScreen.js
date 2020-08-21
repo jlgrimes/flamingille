@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
 });
 
 const ConversationsScreen = ({ navigation, conversations }) => {
-  let conversationList = [{ id: 5, recipientUser: 'jo mama' }];
   return (
     <View style={styles.container}>
-      {conversationList.map((convo) => (
-        <ConversationCard key={convo.id} conversation={convo} />
-      ))}
+      {conversations &&
+        conversations.map((convo) => (
+          <ConversationCard key={convo.id} conversation={convo} />
+        ))}
     </View>
   );
 };

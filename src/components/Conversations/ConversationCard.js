@@ -10,8 +10,8 @@ const ConversationCard = ({ conversation }) => {
     <>
       <Card>
         <Card.Content>
-          <Title>{conversation.recipientUser}</Title>
-          <Paragraph>something cool i think</Paragraph>
+          <Title>{conversation.recipientUser.name}</Title>
+          <Paragraph>{conversation.messages[0]}</Paragraph>
         </Card.Content>
       </Card>
     </>

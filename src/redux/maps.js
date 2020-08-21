@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
       candidateUsers: state.userDbData.candidateUsers,
     },
     matched: state.matched,
+    conversations: state.conversations,
   };
 };
 

@@ -14,7 +14,7 @@ const fetchUser = async (userID) => {
   const evt = await API.graphql(
     graphqlOperation(listUsers, { filter: filter }),
   );
-  return evt.data.listUsers;
+  return evt.data.listUsers.items[0];
 };
 
 // not sure the context of this????
