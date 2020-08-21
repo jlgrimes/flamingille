@@ -1,17 +1,53 @@
 import { listUsers, listMatches } from '../../graphql/queries';
+import { createMatch } from '../../graphql/mutations';
 import { API, graphqlOperation } from 'aws-amplify';
 import store from '../../redux/store';
 
+const addMatch = async (sender, target) => {
+  const match = {
+    sender: sender.id,
+    target: target.id,
+    status: true,
+  };
+
+  const res = await API.graphql(
+    graphqlOperation(createMatch, { input: match }),
+  );
+
+  return res;
+};
+
 // used in Homescreen.js
-export const fetchMatches = async (currentUser) => {
-  const currentUserId = currentUser.id;
+const fetchMatches = async (currentUser) => {
   const filter = {
     sender: {
-      eq: currentUserId,
+      eq: currentUser.id,
     },
   };
   const matches = await API.graphql(
     graphqlOperation(listMatches, { filter: filter }),
+  );
+  console.log(matches);
+  return matches.data.listMatches.items;
+};
+
+// used for when we want to check if the second user matches the first
+// when the first matches with second (check for match)
+const fetchReverseMatch = async (senderId, targetId) => {
+  const reverseMatchFilter = {
+    sender: {
+      eq: targetId,
+    },
+    target: {
+      eq: senderId,
+    },
+    status: {
+      eq: true,
+    },
+  };
+
+  const matches = await API.graphql(
+    graphqlOperation(listMatches, { filter: reverseMatchFilter }),
   );
   return matches.data.listMatches.items;
 };
@@ -19,7 +55,7 @@ export const fetchMatches = async (currentUser) => {
 // used in Homescreen.js
 // this is where the "sorting algorithm is going to take place"
 // all we have for our sorting algorithm now is, are they not the logged in person
-export const fetchCandidates = async (currentUser, matches) => {
+const fetchCandidates = async (currentUser, matches) => {
   const state = store.getState();
 
   const filter = {
@@ -44,3 +80,5 @@ export const fetchCandidates = async (currentUser, matches) => {
 
   return filteredCandidates;
 };
+
+export { addMatch, fetchMatches, fetchReverseMatch, fetchCandidates };

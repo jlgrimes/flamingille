@@ -29,7 +29,7 @@ const HomeCard = ({ user }) => {
               name="heart"
               type="ionicon"
               color="red"
-              onPress={() => matchWithCandidate()}
+              onPress={() => matchWithCandidate(user)}
             />
             <Icon
               raised
