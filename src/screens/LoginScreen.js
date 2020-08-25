@@ -19,12 +19,6 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = ({ navigation, userDbData }) => {
-  useEffect(() => {
-    if (!userDbData.currentUser) {
-      navigation.navigate(screenNames.completeProfile);
-    }
-  }, []);
-
   return (
     <View style={styles.container}>
       <StandardLogin />
