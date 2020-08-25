@@ -6,6 +6,7 @@ import {
   ADD_CANDIDATE_USER,
   TOGGLE_MATCH,
   SET_CONVERSATIONS,
+  RESET_STORE,
 } from '../constants/action-types';
 
 import { initialState } from '../constants/initial-state';
@@ -61,6 +62,9 @@ function rootReducer(state = initialState, action) {
       ...state,
       conversations: action.payload,
     };
+  }
+  if (action.type === RESET_STORE) {
+    return initialState;
   }
   return state;
 }

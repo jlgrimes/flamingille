@@ -7,6 +7,8 @@ import { View, StyleSheet } from 'react-native';
 import HomeCardStack from '../components/Home/HomeCardStack';
 import MatchedModal from '../components/Home/MatchedModal';
 
+import { loadInitData } from '../functions';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,6 +18,9 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = () => {
+  useEffect(() => {
+    loadInitData();
+  }, []);
   return (
     <View style={styles.container}>
       <HomeCardStack />

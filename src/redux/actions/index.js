@@ -6,6 +6,7 @@ import {
   ADD_CANDIDATE_USER,
   TOGGLE_MATCH,
   SET_CONVERSATIONS,
+  RESET_STORE,
 } from '../constants/action-types';
 
 export function setUserAuthData(payload) {
@@ -34,4 +35,8 @@ export function toggleMatch(payload) {
 
 export function setConversations(payload) {
   return { type: SET_CONVERSATIONS, payload };
+}
+
+export function resetStore(payload) {
+  return { type: RESET_STORE, payload };
 }

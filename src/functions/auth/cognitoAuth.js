@@ -5,7 +5,6 @@ import { setUserAuthDataStorage } from '../../functions';
 
 export const hubListen = async () => {
   Hub.listen('auth', ({ payload: { event, data } }) => {
-    // console.log(event);
     switch (event) {
       case 'signIn':
         store.dispatch(setUserAuthData(data));

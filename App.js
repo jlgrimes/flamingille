@@ -21,7 +21,7 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
-import ConversationsScreen from './src/screens/ConversationsScreen';
+import ConversationsScreen from './src/screens/ConversationListScreen';
 
 // Component imports
 import { TabBarIcon } from './src/components/TabBarIcon';
@@ -31,13 +31,9 @@ import { screenNames } from './src/constants/screenMetadata';
 
 // function imports
 import {
-  loadUserAuthDataFromStorage,
   urlOpener,
   hubListen,
-  loadConversations,
-  fetchCurrentUser,
-  fetchMatches,
-  fetchCandidates,
+  loadUserAuthDataFromStorage,
 } from './src/functions';
 
 const Stack = createStackNavigator();
@@ -51,43 +47,12 @@ Amplify.configure({
   },
 });
 
-const App = ({ userAuthData, setCurrentUserDbData, setCandidateUsers }) => {
-  const fetchHomeScreenData = async () => {
-    // fetches the current user from the database
-    let currentUserResponse = await fetchCurrentUser();
-
-    if (currentUserResponse.items && currentUserResponse.items.length === 0) {
-      setCurrentUserDbData(null);
-      return;
-    }
-
-    const currentUser = currentUserResponse.items[0];
-    setCurrentUserDbData(currentUser);
-
-    // fetches the matches that the current user has made
-    // this is used to filter out the candidates that we have matched already
-    const matches = await fetchMatches(currentUser);
-
-    // fetches the list of candidates we display on the home screen
-    const candidates = await fetchCandidates(currentUser, matches);
-    setCandidateUsers(candidates);
-  };
-
-  const appOnRender = async () => {
+const App = ({ userAuthData }) => {
+  useEffect(() => {
     // first thing we want to do on app load is load the user data from storage
     // based on this call, the "userAuthData" variable will be set which changes the render
     // method of Login/Home
-    await loadUserAuthDataFromStorage();
-
-    // here we fetch the home screen data - everything pertaining to the current user, candidates, etc.
-    await fetchHomeScreenData();
-
-    // next is to load the conversations into redux given the userID and the tables
-    await loadConversations();
-  };
-
-  useEffect(() => {
-    appOnRender();
+    loadUserAuthDataFromStorage();
 
     // this is a listener for login/logout events by Amplify Auth
     hubListen();

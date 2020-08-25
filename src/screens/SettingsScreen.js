@@ -4,7 +4,7 @@ import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Auth } from 'aws-amplify';
+import { signOut } from '../functions';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Button onPress={() => Auth.signOut()}>Sign Out</Button>
+      <Button onPress={() => signOut()}>Sign Out</Button>
       <Button onPress={() => console.log('test')}>test</Button>
     </View>
   );
