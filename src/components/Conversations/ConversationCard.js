@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/maps';
 
 import { Card, Title, Paragraph } from 'react-native-paper';
+import { screenNames } from '../../constants/screenMetadata';
 
-const ConversationCard = ({ conversation }) => {
+const ConversationCard = ({ conversation, navigation }) => {
   return (
     <>
-      <Card>
+      <Card onPress={() => navigation.navigate(screenNames.conversation)}>
         <Card.Content>
           <Title>{conversation.recipientUser.name}</Title>
           <Paragraph>{conversation.messages[0]}</Paragraph>

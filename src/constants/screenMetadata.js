@@ -1,6 +1,7 @@
 const screenNames = Object.freeze({
   completeProfile: 'Complete Profile',
   conversations: 'Conversations',
+  conversation: 'Conversation',
   home: 'Home',
   login: 'Login',
   profile: 'Profile',

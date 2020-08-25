@@ -21,7 +21,8 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpCodeScreen from './src/screens/SignUpCodeScreen';
 import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
-import ConversationsScreen from './src/screens/ConversationListScreen';
+import ConversationListScreen from './src/screens/ConversationListScreen';
+import ConversationScreen from './src/screens/ConversationScreen';
 
 // Component imports
 import { TabBarIcon } from './src/components/TabBarIcon';
@@ -71,6 +72,21 @@ const App = ({ userAuthData }) => {
     return false;
   };
 
+  const ConversationTab = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name={screenNames.conversations}
+          component={ConversationListScreen}
+        />
+        <Stack.Screen
+          name={screenNames.conversation}
+          component={ConversationScreen}
+        />
+      </Stack.Navigator>
+    );
+  };
+
   return (
     <NavigationContainer>
       {
@@ -93,7 +109,7 @@ const App = ({ userAuthData }) => {
             <Tab.Screen name={screenNames.home} component={HomeScreen} />
             <Tab.Screen
               name={screenNames.conversations}
-              component={ConversationsScreen}
+              component={ConversationTab}
             />
             {/*<Tab.Screen name={screenNames.profile} component={ProfileScreen} /> */}
             <Tab.Screen

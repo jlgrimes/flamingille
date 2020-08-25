@@ -13,15 +13,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const ConversationsScreen = ({ navigation, conversations }) => {
+const ConversationListScreen = ({ navigation, conversations }) => {
   return (
     <View style={styles.container}>
       {conversations &&
         conversations.map((convo) => (
-          <ConversationCard key={convo.id} conversation={convo} />
+          <ConversationCard
+            key={convo.id}
+            conversation={convo}
+            navigation={navigation}
+          />
         ))}
     </View>
   );
 };
 
-export default connect(mapStateToProps)(ConversationsScreen);
+export default connect(mapStateToProps)(ConversationListScreen);
