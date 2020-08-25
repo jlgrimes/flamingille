@@ -8,6 +8,7 @@ import store from '../../redux/store';
 // used to get all of the conversation IDs
 const getCurrentUserConversationUsersEntries = async () => {
   const state = store.getState();
+  console.log(state.userDbData.currentUser.id);
 
   const filter = {
     userID: {

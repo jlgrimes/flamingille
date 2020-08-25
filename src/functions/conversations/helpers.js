@@ -18,7 +18,7 @@ const loadConversations = async () => {
       messages: [],
     });
   }
-  console.log(conversations);
+
   store.dispatch(setConversations(conversations));
 };
 
