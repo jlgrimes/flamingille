@@ -22,10 +22,14 @@ const loadConversations = async () => {
     const messages = await getConversationMessages(conversationID);
 
     // we tweak the messages we receive to play nice with GiftedChat
-    const giftedChatMessages = messages.map((message) =>
+    let giftedChatMessages = messages.map((message) =>
       message.userID === oppositeUserID
         ? { ...message, _id: message.id, user: { _id: 2 } }
         : { ...message, _id: message.id, user: { _id: 1 } },
+    );
+
+    giftedChatMessages = giftedChatMessages.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
 
     await conversations.push({
