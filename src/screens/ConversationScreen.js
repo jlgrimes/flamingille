@@ -6,26 +6,20 @@ import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
 import { sendMessage } from '../functions';
 
+import store from '../redux/store';
+
 const ConversationScreen = ({ userDbData, route }) => {
+  const state = store.getState();
+  const { conversation } = route.params;
+  const conversationID = conversation.conversationID;
+
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-        },
-      },
-    ]);
+    setMessages(conversation.messages);
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    const { conversation } = route.params;
-    const conversationID = conversation.conversationID;
     const userID = userDbData.currentUser.id;
     const sentMessage = messages[0];
 

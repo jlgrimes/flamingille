@@ -24,8 +24,8 @@ const loadConversations = async () => {
     // we tweak the messages we receive to play nice with GiftedChat
     const giftedChatMessages = messages.map((message) =>
       message.userID === oppositeUserID
-        ? { ...message, user: { _id: 1 } }
-        : { ...message, user: { _id: 0 } },
+        ? { ...message, _id: message.id, user: { _id: 2 } }
+        : { ...message, _id: message.id, user: { _id: 1 } },
     );
 
     await conversations.push({
