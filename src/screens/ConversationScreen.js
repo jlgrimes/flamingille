@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../redux/maps';
 
-import { GiftedChat } from 'react-native-gifted-chat';
+import { sendMessage } from '../functions';
 
-const ConversationScreen = ({ conversation }) => {
+const ConversationScreen = ({ userDbData, route }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -23,6 +24,12 @@ const ConversationScreen = ({ conversation }) => {
   }, []);
 
   const onSend = useCallback((messages = []) => {
+    const { conversation } = route.params;
+    const conversationID = conversation.conversationID;
+    const userID = userDbData.currentUser.id;
+    const sentMessage = messages[0];
+
+    sendMessage(sentMessage, userID, conversationID);
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages),
     );

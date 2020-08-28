@@ -85,36 +85,6 @@ export const deleteConversation = /* GraphQL */ `
     }
   }
 `;
-export const createMessage = /* GraphQL */ `
-  mutation CreateMessage($input: CreateMessageInput!) {
-    createMessage(input: $input) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
-export const updateMessage = /* GraphQL */ `
-  mutation UpdateMessage($input: UpdateMessageInput!) {
-    updateMessage(input: $input) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
-export const deleteMessage = /* GraphQL */ `
-  mutation DeleteMessage($input: DeleteMessageInput!) {
-    deleteMessage(input: $input) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
 export const createConversationUsers = /* GraphQL */ `
   mutation CreateConversationUsers($input: CreateConversationUsersInput!) {
     createConversationUsers(input: $input) {
@@ -136,6 +106,36 @@ export const deleteConversationUsers = /* GraphQL */ `
     deleteConversationUsers(input: $input) {
       userID
       conversationID
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage($input: CreateMessageInput!) {
+    createMessage(input: $input) {
+      id
+      createdAt
+      text
+      userID
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage($input: UpdateMessageInput!) {
+    updateMessage(input: $input) {
+      id
+      createdAt
+      text
+      userID
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage($input: DeleteMessageInput!) {
+    deleteMessage(input: $input) {
+      id
+      createdAt
+      text
+      userID
     }
   }
 `;

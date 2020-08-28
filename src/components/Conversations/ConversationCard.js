@@ -9,10 +9,15 @@ import { screenNames } from '../../constants/screenMetadata';
 const ConversationCard = ({ conversation, navigation }) => {
   return (
     <>
-      <Card onPress={() => navigation.navigate(screenNames.conversation)}>
+      <Card
+        onPress={() =>
+          navigation.navigate(screenNames.conversation, {
+            conversation: conversation,
+          })
+        }>
         <Card.Content>
           <Title>{conversation.recipientUser.name}</Title>
-          <Paragraph>{conversation.messages[0]}</Paragraph>
+          <Paragraph>{conversation.messages[0].text}</Paragraph>
         </Card.Content>
       </Card>
     </>

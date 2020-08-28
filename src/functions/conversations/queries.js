@@ -1,6 +1,7 @@
 import {
   listConversationUsers,
   listConversations,
+  listMessages,
 } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import store from '../../redux/store';
@@ -60,8 +61,23 @@ const getCurrentUserConversations = async (conversationID) => {
   return conversations.data.listConversations.items;
 };
 
+const getConversationMessages = async (conversationID) => {
+  const filter = {
+    conversationID: {
+      eq: conversationID,
+    },
+  };
+
+  const messages = await API.graphql(
+    graphqlOperation(listMessages, { filter: filter }),
+  );
+
+  return messages.data.listMessages.items;
+};
+
 export {
   getCurrentUserConversations,
   fetchOppositeUserID,
   getCurrentUserConversationUsersEntries,
+  getConversationMessages,
 };

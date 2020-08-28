@@ -7,6 +7,7 @@ import {
   TOGGLE_MATCH,
   SET_CONVERSATIONS,
   RESET_STORE,
+  ADD_MESSAGE,
 } from '../constants/action-types';
 
 import { initialState } from '../constants/initial-state';

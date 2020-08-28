@@ -136,66 +136,6 @@ export const onDeleteConversation = /* GraphQL */ `
     }
   }
 `;
-export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage(
-    $id: ID
-    $senderUser: ID
-    $content: String
-    $timestamp: AWSDateTime
-  ) {
-    onCreateMessage(
-      id: $id
-      senderUser: $senderUser
-      content: $content
-      timestamp: $timestamp
-    ) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
-export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage(
-    $id: ID
-    $senderUser: ID
-    $content: String
-    $timestamp: AWSDateTime
-  ) {
-    onUpdateMessage(
-      id: $id
-      senderUser: $senderUser
-      content: $content
-      timestamp: $timestamp
-    ) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
-export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage(
-    $id: ID
-    $senderUser: ID
-    $content: String
-    $timestamp: AWSDateTime
-  ) {
-    onDeleteMessage(
-      id: $id
-      senderUser: $senderUser
-      content: $content
-      timestamp: $timestamp
-    ) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
 export const onCreateConversationUsers = /* GraphQL */ `
   subscription OnCreateConversationUsers($userID: ID, $conversationID: ID) {
     onCreateConversationUsers(
@@ -226,6 +166,66 @@ export const onDeleteConversationUsers = /* GraphQL */ `
     ) {
       userID
       conversationID
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage(
+    $id: ID
+    $createdAt: AWSDateTime
+    $text: String
+    $userID: ID
+  ) {
+    onCreateMessage(
+      id: $id
+      createdAt: $createdAt
+      text: $text
+      userID: $userID
+    ) {
+      id
+      createdAt
+      text
+      userID
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage(
+    $id: ID
+    $createdAt: AWSDateTime
+    $text: String
+    $userID: ID
+  ) {
+    onUpdateMessage(
+      id: $id
+      createdAt: $createdAt
+      text: $text
+      userID: $userID
+    ) {
+      id
+      createdAt
+      text
+      userID
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage(
+    $id: ID
+    $createdAt: AWSDateTime
+    $text: String
+    $userID: ID
+  ) {
+    onDeleteMessage(
+      id: $id
+      createdAt: $createdAt
+      text: $text
+      userID: $userID
+    ) {
+      id
+      createdAt
+      text
+      userID
     }
   }
 `;

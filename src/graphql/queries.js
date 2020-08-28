@@ -78,33 +78,6 @@ export const listConversations = /* GraphQL */ `
     }
   }
 `;
-export const getMessage = /* GraphQL */ `
-  query GetMessage($id: ID!) {
-    getMessage(id: $id) {
-      id
-      senderUser
-      content
-      timestamp
-    }
-  }
-`;
-export const listMessages = /* GraphQL */ `
-  query ListMessages(
-    $filter: TableMessageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        senderUser
-        content
-        timestamp
-      }
-      nextToken
-    }
-  }
-`;
 export const getConversationUsers = /* GraphQL */ `
   query GetConversationUsers($userID: ID!) {
     getConversationUsers(userID: $userID) {
@@ -127,6 +100,33 @@ export const listConversationUsers = /* GraphQL */ `
       items {
         userID
         conversationID
+      }
+      nextToken
+    }
+  }
+`;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      createdAt
+      text
+      userID
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: TableMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        createdAt
+        text
+        userID
       }
       nextToken
     }

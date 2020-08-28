@@ -2,6 +2,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import {
   createConversation,
   createConversationUsers,
+  createMessage,
 } from '../../graphql/mutations';
 
 // when the two users match, create the conversation between them
@@ -34,4 +35,18 @@ const addConversationUsersEntries = async (
   });
 };
 
-export { addConversation, addConversationUsersEntries };
+const addMessage = async (giftedChatMessage, userID, conversationID) => {
+  const input = {
+    conversationID: conversationID,
+    userID: userID,
+    createdAt: giftedChatMessage.createdAt,
+    text: giftedChatMessage.text,
+  };
+
+  const res = await API.graphql(
+    graphqlOperation(createMessage, { input: input }),
+  );
+  console.log(res);
+};
+
+export { addConversation, addConversationUsersEntries, addMessage };
