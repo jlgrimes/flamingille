@@ -28,6 +28,7 @@ const loadConversations = async () => {
         : { ...message, _id: message.id, user: { _id: 1 } },
     );
 
+    // hey, maybe one day we can change this to a GQL query? just a thought
     giftedChatMessages = giftedChatMessages.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
